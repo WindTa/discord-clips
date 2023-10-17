@@ -71,8 +71,10 @@
 ### Implement DiscordUser  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `DiscordUserJdbcTemplateRepository` class
 	- [ ] `DiscordUser findById(int discordUserId)`
+		- [ ] `getRolesByUserServer()`
 	- [ ] `DiscordUser add(DiscordUser discordUser)`
 	- [ ] `boolean update(DiscordUser discordUser)`
+	- [ ] `void updateRoles(DiscordUser user)`
 	- [ ] `boolean deleteById(int discordUserId)`
 - [ ] Add `DiscordUserRepositoryTest` class
 - [ ] Extract `DiscordUserRepository` interface
@@ -123,38 +125,22 @@
 	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody Clip clip)`
 	 - [ ] `@PutMapping("/{clipId}")` `ResponseEntity<Object> update(@PathVariable int clipId, @RequestBody Clip clip)`
 	 - [ ] `@DeleteMapping("/{clipId}")` `ResponseEntity<Void> deleteById(@PathVariable int clipId)`
-### Implement UserServerClip  (Estimate: 2 hours | Actual:  hours)
-- [ ] Add `UserServerClipJdbcTemplateRepository` class
-	- [ ] `UserServerClip add(UserServerClip userServerClip)`
-	- [ ] `boolean update(UserServerClip userServerClip)`
+### Implement ServerClip  (Estimate: 2 hours | Actual:  hours)
+- [ ] Add `ServerClipJdbcTemplateRepository` class
+	- [ ] `ServerClip add(ServerClip serverClip)`
+	- [ ] `boolean update(ServerClip serverClip)`
 	- [ ] `boolean deleteByKey(int serverId, int clipId)`
-- [ ] Add `UserServerClipRepositoryTest` class
-- [ ] Extract `UserServerClipRepository` interface
-- [ ] Add `UserServerClipService` class
-	- [ ] `Result<UserServerClip> add(UserServerClip userServerClip)`
-	- [ ] `Result<UserServerClip> update(UserServerClip userServerClip)`
+- [ ] Add `ServerClipRepositoryTest` class
+- [ ] Extract `ServerClipRepository` interface
+- [ ] Add `ServerClipService` class
+	- [ ] `Result<ServerClip> add(ServerClip serverClip)`
+	- [ ] `Result<ServerClip> update(ServerClip serverClip)`
 	- [ ] `boolean deleteByKey(int serverId, int clipId)`
- - [ ] Add `UserServerClipServiceTest` class
- - [ ] Add `UserServerClipController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody UserServerClip userServerClip)`
-	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody UserServerClip userServerClip)`
+ - [ ] Add `ServerClipServiceTest` class
+ - [ ] Add `ServerClipController` class
+	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody ServerClip serverClip)`
+	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody ServerClip serverClip)`
 	 - [ ] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
-### Implement UserDefaultClip  (Estimate: 2 hours | Actual:  hours)
-- [ ] Add `UserDefaultClipJdbcTemplateRepository` class
-	- [ ] `UserDefaultClip add(UserDefaultClip userDefaultClip)`
-	- [ ] `boolean update(UserDefaultClip userDefaultClip)`
-	- [ ] `boolean deleteByKey(int clipId)`
-- [ ] Add `UserDefaultClipRepositoryTest` class
-- [ ] Extract `UserDefaultClipRepository` interface
-- [ ] Add `UserDefaultClipService` class
-	- [ ] `Result<UserDefaultClip> add(UserDefaultClip userDefaultClip)`
-	- [ ] `Result<UserDefaultClip> update(UserDefaultClip userDefaultClip)`
-	- [ ] `boolean deleteByKey(int clipId)`
- - [ ] Add `UserDefaultClipServiceTest` class
- - [ ] Add `UserDefaultClipController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody UserDefaultClip userDefaultClip)`
-	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody UserDefaultClip userDefaultClip)`
-	 - [ ] `@DeleteMapping("/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int clipId)`
 ### Implement Playlist  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `PlaylistJdbcTemplateRepository` class
 	- [ ] `List<Playlist> findByUser(int userId)`
