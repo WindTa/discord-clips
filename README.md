@@ -11,9 +11,9 @@
 - Learning Goals: learn to use discord.js 14, embedded media players, and OAuth2. 
 ---
 ## Diagrams and Wireframes
-[Database Schema](./imgs/database-schema.png)
-[Layers](./imgs/layers.png)
-[UI Sketch and Transitions](./imgs/ui-sketch.png)
+- [Database Schema](./imgs/database-schema.png)
+- [Layers](./imgs/layers.png)
+- [UI Sketch and Transitions](./imgs/ui-sketch.png)
 
 ---
 ## User Stories
