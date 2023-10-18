@@ -53,7 +53,7 @@
 - [x] UI Sketch and Transitions
 ### Create Task List  (Estimate: 2 hours | Actual: 2 hours)
 ### Database  (Estimate: 2 hours | Actual:  hours)
-- [ ] Design schema
+- [x] Design schema
 - [ ] Create DML schema
 - [ ] Create test DML schema
 - [ ] Create known good state stored procedure for testing purposes
