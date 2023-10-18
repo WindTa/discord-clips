@@ -71,10 +71,8 @@
 ### Implement DiscordUser  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `DiscordUserJdbcTemplateRepository` class
 	- [ ] `DiscordUser findById(int discordUserId)`
-		- [ ] `getRolesByUserServer()`
 	- [ ] `DiscordUser add(DiscordUser discordUser)`
 	- [ ] `boolean update(DiscordUser discordUser)`
-	- [ ] `void updateRoles(DiscordUser user)`
 	- [ ] `boolean deleteById(int discordUserId)`
 - [ ] Add `DiscordUserRepositoryTest` class
 - [ ] Extract `DiscordUserRepository` interface
