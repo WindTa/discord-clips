@@ -40,6 +40,35 @@
 	- view unassigned clips (not in a playlist)
 	- enable/disable clip for server
 ---
+## Install Guide
+### Discord Application
+- [Login to your Discord here](https://discord.com/developers/applications)
+- Create a Discord Application
+- Go to OAuth2
+	- Save `Client ID`
+	- Save `Client Secret`
+	- Enter `Callback URL` into Redirects
+### Supabase
+- [Login to your Github here](https://supabase.com/)
+- Create a Supabase Project
+	- Save `Database Password` just in case you ever need it
+- Go to Settings -> API
+	- Save `URL`
+	- Save `Project API Key anon public`
+-  Go to Authentication -> URL Configuration
+	- Enter a url you wish to redirect to after authenticating
+- Go to Authentication -> Providers -> Discord
+	- Enable
+	- Enter `Client ID` from Discord Project
+	- Enter `Client Secret` from Discord Project
+	- Save `Callback URL`
+### React App
+- Create react app with `npx create-react-app react-app-name`
+#### Libaries
+- Supabase: `npm install @supabase/auth-ui-react @supabase/supabase-js`
+- Routing: `npm install react-router-dom`
+- Bootstrap: `npm install bootstrap react-bootstrap react-router-bootstrap`
+---
 ## Tasks
 ### Research  (Estimate: 4 hours | Actual: 6 hours)
 - [x] YouTube Embed
