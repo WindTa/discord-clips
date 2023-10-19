@@ -70,17 +70,17 @@
 - Bootstrap: `npm install bootstrap react-bootstrap react-router-bootstrap`
 ---
 ## Tasks
-### Research  (Estimate: 4 hours | Actual: 6 hours)
+### ~~Research  (Estimate: 4 hours | Actual: 6 hours)~~
 - [x] YouTube Embed
 - [x] Discord.js Audio Stream
 - [x] Discord.js OAuth2
-### Diagrams  (Estimate: 4 hours | Actual: 4 hours)
+### ~~Diagrams  (Estimate: 4 hours | Actual: 4 hours)~~
 - [x] Database schema
 - [ ] Class
 - [x] Layers
 - [x] Flow
 - [x] UI Sketch and Transitions
-### Create Task List  (Estimate: 2 hours | Actual: 2 hours)
+### ~~Create Task List  (Estimate: 2 hours | Actual: 2 hours)~~
 ### Database  (Estimate: 2 hours | Actual:  hours)
 - [x] Design schema
 - [ ] Create DML schema
@@ -97,23 +97,23 @@
 	- [ ] Generate OAuth2 Link with permissions and redirect
 	- [ ] Create Route to OAuth2 Link
 	- [ ] Any requests made will need the access token
-### Implement DiscordUser  (Estimate: 2 hours | Actual:  hours)
-- [ ] Add `DiscordUserJdbcTemplateRepository` class
-	- [ ] `DiscordUser findById(int discordUserId)`
-	- [ ] `DiscordUser add(DiscordUser discordUser)`
-	- [ ] `boolean update(DiscordUser discordUser)`
-	- [ ] `boolean deleteById(int discordUserId)`
-- [ ] Add `DiscordUserRepositoryTest` class
-- [ ] Extract `DiscordUserRepository` interface
-- [ ] Add `DiscordUserService` class
-	- [ ] `Result<DiscordUser> add(DiscordUser discordUser)`
-	- [ ] `Result<DiscordUser> update(DiscordUser discordUser)`
-	- [ ] `boolean deleteById(int discordUserId)`
- - [ ] Add `DiscordUserServiceTest` class
- - [ ] Add `DiscordUserController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordUser discordUser)`
-	 - [ ] `@PutMapping("/{discordUserId}")` `ResponseEntity<Object> update(@PathVariable int discordUserId, @RequestBody DiscordUser discordUser)`
-	 - [ ] `@DeleteMapping("/{discordUserId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordUserId)`
+### ~~Implement DiscordUser  (Estimate: 2 hours | Actual:  3 hours)~~
+- [x] Add `DiscordUserJdbcTemplateRepository` class
+	- [x] `DiscordUser findById(int discordUserId)`
+	- [x] `DiscordUser add(DiscordUser discordUser)`
+	- [x] `boolean update(DiscordUser discordUser)`
+	- [x] `boolean deleteById(int discordUserId)`
+- [x] Add `DiscordUserRepositoryTest` class
+- [x] Extract `DiscordUserRepository` interface
+- [x] Add `DiscordUserService` class
+	- [x] `Result<DiscordUser> add(DiscordUser discordUser)`
+	- [x] `Result<DiscordUser> update(DiscordUser discordUser)`
+	- [x] `boolean deleteById(int discordUserId)`
+ - [x] Add `DiscordUserServiceTest` class
+ - [x] Add `DiscordUserController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordUser discordUser)`
+	 - [x] `@PutMapping("/{discordUserId}")` `ResponseEntity<Object> update(@PathVariable int discordUserId, @RequestBody DiscordUser discordUser)`
+	 - [x] `@DeleteMapping("/{discordUserId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordUserId)`
 ### Implement DiscordServer  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `DiscordServerJdbcTemplateRepository` class
 	- [ ] `DiscordServer findById(int discordServerId)`
