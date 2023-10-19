@@ -1,0 +1,25 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/discord_clips
+        username: ${DISCORD_CLIP_DB_USERNAME}
+        password: ${DISCORD_CLIP_DB_PASSWORD}
+    security:
+        oauth2:
+            client:
+                registration:
+                    discord:
+                        client-id: ${DISCORD_CLIENT_ID}
+                        client-secret: ${DISCORD_CLIENT_SECRET}
+                        clientAuthenticationMethod: post
+                        authorizationGrantType: authorization_code
+                        scope:
+                            - identify
+                        redirectUriTemplate: "{baseUrl}/login/oauth2/discord"
+                        clientName: FourScouts client
+                provider:
+                    discord:
+                        authorizationUri: https://discordapp.com/api/oauth2/authorize
+                        tokenUri: https://discordapp.com/api/oauth2/token
+                        userInfoUri: https://discordapp.com/api/users/@me
+                        guildsUri: https://discordapp.com/api/users/@me/guilds
+                        usernameAttribute: username
