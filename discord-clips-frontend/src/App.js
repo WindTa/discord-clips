@@ -45,6 +45,8 @@ function App() {
         signout
     }
 
+    console.log(user);
+
     return (
         <UserContext.Provider value={auth}>
             <Router>

@@ -10,6 +10,9 @@ function NavLogin() {
             appearance={{ theme: ThemeSupa }}
             theme="dark"
             providers={["discord"]}
+            providerScopes={{
+                discord: 'identify guilds'
+            }}
             onlyThirdPartyProviders={true}
         />
     );
