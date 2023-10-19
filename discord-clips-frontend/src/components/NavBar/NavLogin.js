@@ -1,16 +1,12 @@
-import config from '../config.json';
-
-import { createClient } from '@supabase/supabase-js';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import supabaseClient from '../../services/SupabaseClient';
 
-const supabase = createClient(config.supabaseUrl, config.supabaseKey);
-
-function NavAuth() {
+function NavLogin() {
 
     return (
         <Auth 
-            supabaseClient={supabase}
+            supabaseClient={supabaseClient}
             appearance={{ theme: ThemeSupa }}
             theme="dark"
             providers={["discord"]}
@@ -19,4 +15,4 @@ function NavAuth() {
     );
 }
 
-export default NavAuth;
+export default NavLogin;
