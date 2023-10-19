@@ -8,6 +8,23 @@ create table discord_user (
     username varchar(32) not null
 );
 
+create table discord_server (
+);
+
 -- insert default values
 insert into discord_user (discord_user_id, username) values
 	(221863292681977857, 'windta');
+    
+-- set known good state
+delimiter //
+create procedure set_known_good_state()
+begin
+	delete from discord_user;
+    
+    insert into discord_user
+		(discord_user_id, username) 
+	values
+		(221863292681977857, 'windta');
+	
+end //
+delimiter ;
