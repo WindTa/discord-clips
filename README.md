@@ -81,12 +81,12 @@
 - [x] Flow
 - [x] UI Sketch and Transitions
 ### ~~Create Task List  (Estimate: 2 hours | Actual: 2 hours)~~
-### Database  (Estimate: 2 hours | Actual:  hours)
+### ~~Database  (Estimate: 2 hours | Actual:  2 hours)~~
 - [x] Design schema
-- [ ] Create DML schema
-- [ ] Create test DML schema
-- [ ] Create known good state stored procedure for testing purposes
-### Discord Authentication  (Estimate: 4 hours | Actual:  hours)
+- [x] Create DML schema
+- [x] Create test DML schema
+- [x] Create known good state stored procedure for testing purposes
+### Discord Authentication  (Estimate: 4 hours | Actual:  8+ hours)
 - [ ] Create Spring Boot application
 	- [ ] Configure to support Discord as a OAuth2 provider
 	- [ ] Add `SecurityConfig` class
@@ -114,7 +114,7 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordUser discordUser)`
 	 - [x] `@PutMapping("/{discordUserId}")` `ResponseEntity<Object> update(@PathVariable int discordUserId, @RequestBody DiscordUser discordUser)`
 	 - [x] `@DeleteMapping("/{discordUserId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordUserId)`
-### ~~Implement DiscordServer  (Estimate: 2 hours | Actual:  hours)~~
+### ~~Implement DiscordServer  (Estimate: 2 hours | Actual:  1 hours)~~
 - [x] Add `DiscordServerJdbcTemplateRepository` class
 	- [x] `DiscordServer findById(int discordServerId)`
 		- [x] `addClips()`
