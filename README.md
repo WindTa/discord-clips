@@ -81,12 +81,12 @@
 - [x] Flow
 - [x] UI Sketch and Transitions
 ### ~~Create Task List  (Estimate: 2 hours | Actual: 2 hours)~~
-### Database  (Estimate: 2 hours | Actual:  hours)
+### ~~Database  (Estimate: 2 hours | Actual:  2 hours)~~
 - [x] Design schema
-- [ ] Create DML schema
-- [ ] Create test DML schema
-- [ ] Create known good state stored procedure for testing purposes
-### Discord Authentication  (Estimate: 4 hours | Actual:  hours)
+- [x] Create DML schema
+- [x] Create test DML schema
+- [x] Create known good state stored procedure for testing purposes
+### Discord Authentication  (Estimate: 4 hours | Actual:  8+ hours)
 - [ ] Create Spring Boot application
 	- [ ] Configure to support Discord as a OAuth2 provider
 	- [ ] Add `SecurityConfig` class
@@ -114,24 +114,24 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordUser discordUser)`
 	 - [x] `@PutMapping("/{discordUserId}")` `ResponseEntity<Object> update(@PathVariable int discordUserId, @RequestBody DiscordUser discordUser)`
 	 - [x] `@DeleteMapping("/{discordUserId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordUserId)`
-### Implement DiscordServer  (Estimate: 2 hours | Actual:  hours)
-- [ ] Add `DiscordServerJdbcTemplateRepository` class
-	- [ ] `DiscordServer findById(int discordServerId)`
-		- [ ] `addClips()`
-	- [ ] `DiscordServer add(DiscordServer discordServer)`
-	- [ ] `boolean update(DiscordServer discordServer)`
-	- [ ] `boolean deleteById(int discordServerId)`
-- [ ] Add `DiscordServerRepositoryTest` class
-- [ ] Extract `DiscordServerRepository` interface
-- [ ] Add `DiscordServerService` class
-	- [ ] `Result<DiscordServer> add(DiscordServer discordServer)`
-	- [ ] `Result<DiscordServer> update(DiscordServer discordServer)`
-	- [ ] `boolean deleteById(int discordServerId)`
- - [ ] Add `DiscordServerServiceTest` class
- - [ ] Add `DiscordServerController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordServer discordServer)`
-	 - [ ] `@PutMapping("/{discordServerId}")` `ResponseEntity<Object> update(@PathVariable int discordServerId, @RequestBody DiscordServer discordServer)`
-	 - [ ] `@DeleteMapping("/{discordServerId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordServerId)`
+### ~~Implement DiscordServer  (Estimate: 2 hours | Actual:  1 hours)~~
+- [x] Add `DiscordServerJdbcTemplateRepository` class
+	- [x] `DiscordServer findById(int discordServerId)`
+		- [x] `addClips()`
+	- [x] `DiscordServer add(DiscordServer discordServer)`
+	- [x] `boolean update(DiscordServer discordServer)`
+	- [x] `boolean deleteById(int discordServerId)`
+- [x] Add `DiscordServerRepositoryTest` class
+- [x] Extract `DiscordServerRepository` interface
+- [x] Add `DiscordServerService` class
+	- [x] `Result<DiscordServer> add(DiscordServer discordServer)`
+	- [x] `Result<DiscordServer> update(DiscordServer discordServer)`
+	- [x] `boolean deleteById(int discordServerId)`
+ - [x] Add `DiscordServerServiceTest` class
+ - [x] Add `DiscordServerController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordServer discordServer)`
+	 - [x] `@PutMapping("/{discordServerId}")` `ResponseEntity<Object> update(@PathVariable int discordServerId, @RequestBody DiscordServer discordServer)`
+	 - [x] `@DeleteMapping("/{discordServerId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordServerId)`
 ### Implement YouTube Clip  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `ClipJdbcTemplateRepository` class
 	- [ ] `List<Clip> findByUser(int userId)`
@@ -170,7 +170,7 @@
 	 - [ ] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
 ### Implement Playlist  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `PlaylistJdbcTemplateRepository` class
-	- [ ] `List<Playlist> findByUser(int userId)`
+	- [ ] `List<Playlist> findByUserId(int userId)`
 	- [ ] `Playlist findById(int playlistId)`
 	- [ ] `Playlist add(Playlist playlist)`
 	- [ ] `boolean update(Playlist playlist)`

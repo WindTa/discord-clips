@@ -1,8 +1,8 @@
 package org.capstone.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.capstone.data.interfaces.DiscordUserRepository;
-import org.capstone.models.DiscordUser;
+import org.capstone.data.interfaces.DiscordServerRepository;
+import org.capstone.models.DiscordServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,43 +13,40 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DiscordUserControllerTest {
+public class DiscordServerControllerTest {
 
     @MockBean
-    DiscordUserRepository discordUserRepository;
+    DiscordServerRepository discordServerRepository;
 
     @Autowired
     MockMvc mvc;
 
     @Test
     void getShouldReturn200() throws Exception {
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordServer discordServer = makeDiscordServer();
 
-        when(discordUserRepository.findById(1)).thenReturn(discordUser);
+        when(discordServerRepository.findById(1)).thenReturn(discordServer);
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = get("/api/discord-users/1");
+        var request = get("/api/discord-servers/1");
 
         mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().json(discordUserJson));
+                .andExpect(content().json(discordServerJson));
     }
 
     @Test
     void getShouldReturn404WhenNotFound() throws Exception {
-        when(discordUserRepository.findById(1)).thenReturn(null);
-        var request = get("/api/discord-users/1");
+        when(discordServerRepository.findById(1)).thenReturn(null);
+        var request = get("/api/discord-servers/1");
         mvc.perform(request)
                 .andExpect(status().isNotFound());
     }
@@ -57,25 +54,25 @@ public class DiscordUserControllerTest {
     @Test
     void addShouldReturn201() throws Exception {
 
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordServer discordServer = makeDiscordServer();
 
-        when(discordUserRepository.add(any())).thenReturn(discordUser);
+        when(discordServerRepository.add(any())).thenReturn(discordServer);
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = post("/api/discord-users")
+        var request = post("/api/discord-servers")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isCreated())
-                .andExpect(content().json(discordUserJson));
+                .andExpect(content().json(discordServerJson));
     }
 
     @Test
     void addShouldReturn400WhenEmpty() throws Exception {
-        var request = post("/api/discord-users")
+        var request = post("/api/discord-servers")
                 .contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request)
@@ -86,12 +83,12 @@ public class DiscordUserControllerTest {
     void addShouldReturn400WhenInvalid() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        DiscordUser discordUser = new DiscordUser();
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        DiscordServer discordServer = new DiscordServer();
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = post("/api/discord-users")
+        var request = post("/api/discord-servers")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
@@ -101,12 +98,12 @@ public class DiscordUserControllerTest {
     void addShouldReturn415WhenInvalid() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        DiscordUser discordUser = makeDiscordUser();
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        DiscordServer discordServer = makeDiscordServer();
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = post("/api/discord-users")
+        var request = post("/api/discord-servers")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isUnsupportedMediaType());
@@ -115,16 +112,16 @@ public class DiscordUserControllerTest {
     @Test
     void updateShouldReturn204() throws Exception {
 
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordServer discordServer = makeDiscordServer();
 
-        when(discordUserRepository.update(any())).thenReturn(true);
+        when(discordServerRepository.update(any())).thenReturn(true);
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = put("/api/discord-users/"+discordUser.getDiscordUserId())
+        var request = put("/api/discord-servers/"+discordServer.getDiscordServerId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isNoContent());
@@ -132,7 +129,7 @@ public class DiscordUserControllerTest {
 
     @Test
     void updateShouldReturn400WhenEmpty() throws Exception {
-        var request = put("/api/discord-users/1")
+        var request = put("/api/discord-servers/1")
                 .contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request)
@@ -143,13 +140,13 @@ public class DiscordUserControllerTest {
     void updateShouldReturn400WhenInvalid() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        DiscordUser discordUser = new DiscordUser();
-        discordUser.setDiscordUserId(1);
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        DiscordServer discordServer = new DiscordServer();
+        discordServer.setDiscordServerId(1);
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = put("/api/discord-users/1")
+        var request = put("/api/discord-servers/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
@@ -158,16 +155,16 @@ public class DiscordUserControllerTest {
     @Test
     void updateShouldReturn404WhenNotFound() throws Exception {
 
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordServer discordServer = makeDiscordServer();
 
-        when(discordUserRepository.update(any())).thenReturn(false);
+        when(discordServerRepository.update(any())).thenReturn(false);
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = put("/api/discord-users/"+discordUser.getDiscordUserId())
+        var request = put("/api/discord-servers/"+discordServer.getDiscordServerId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isNotFound());
@@ -177,12 +174,12 @@ public class DiscordUserControllerTest {
     void updateShouldReturn409WhenConflict() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        DiscordUser discordUser = new DiscordUser();
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        DiscordServer discordServer = new DiscordServer();
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = put("/api/discord-users/1")
+        var request = put("/api/discord-servers/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isConflict());
@@ -192,12 +189,12 @@ public class DiscordUserControllerTest {
     void updateShouldReturn415WhenInvalid() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        DiscordUser discordUser = makeDiscordUser();
-        String discordUserJson = jsonMapper.writeValueAsString(discordUser);
+        DiscordServer discordServer = makeDiscordServer();
+        String discordServerJson = jsonMapper.writeValueAsString(discordServer);
 
-        var request = put("/api/discord-users/1")
+        var request = put("/api/discord-servers/1")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
-                .content(discordUserJson);
+                .content(discordServerJson);
 
         mvc.perform(request)
                 .andExpect(status().isUnsupportedMediaType());
@@ -205,26 +202,26 @@ public class DiscordUserControllerTest {
 
     @Test
     void deleteShouldReturn204() throws Exception {
-        when(discordUserRepository.deleteById(1)).thenReturn(true);
-        var request = delete("/api/discord-users/1");
+        when(discordServerRepository.deleteById(1)).thenReturn(true);
+        var request = delete("/api/discord-servers/1");
         mvc.perform(request)
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void deleteShouldReturn404WhenNotFound() throws Exception {
-        when(discordUserRepository.deleteById(1)).thenReturn(false);
-        var request = delete("/api/discord-users/1");
+        when(discordServerRepository.deleteById(1)).thenReturn(false);
+        var request = delete("/api/discord-servers/1");
         mvc.perform(request)
                 .andExpect(status().isNotFound());
     }
 
-    private DiscordUser makeDiscordUser() {
-        DiscordUser discordUser = new DiscordUser();
-        discordUser.setDiscordUserId(221863292681977857L);
-        discordUser.setUsername("windta");
+    private DiscordServer makeDiscordServer() {
+        DiscordServer discordServer = new DiscordServer();
+        discordServer.setDiscordServerId(1161381438839607358L);
+        discordServer.setServername("WindTa's server");
 
-        return discordUser;
+        return discordServer;
     }
 
 }
