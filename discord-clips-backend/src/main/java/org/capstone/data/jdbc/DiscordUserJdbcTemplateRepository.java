@@ -1,11 +1,11 @@
-package org.capstone.data;
+package org.capstone.data.jdbc;
 
+import org.capstone.data.interfaces.DiscordUserRepository;
 import org.capstone.data.mappers.DiscordUserMapper;
 import org.capstone.models.DiscordUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 

@@ -1,5 +1,6 @@
 package org.capstone.data;
 
+import org.capstone.data.jdbc.DiscordUserJdbcTemplateRepository;
 import org.capstone.models.DiscordUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

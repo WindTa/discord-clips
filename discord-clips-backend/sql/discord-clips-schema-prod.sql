@@ -1,6 +1,6 @@
-drop database if exists discord_clips_test;
-create database discord_clips_test;
-use discord_clips_test;
+drop database if exists discord_clips;
+create database discord_clips;
+use discord_clips;
 
 -- create tables and relationships
 create table discord_user (

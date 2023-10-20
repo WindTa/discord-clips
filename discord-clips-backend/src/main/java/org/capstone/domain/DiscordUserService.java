@@ -1,10 +1,8 @@
 package org.capstone.domain;
 
-import org.capstone.data.DiscordUserRepository;
+import org.capstone.data.interfaces.DiscordUserRepository;
 import org.capstone.models.DiscordUser;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DiscordUserService {
