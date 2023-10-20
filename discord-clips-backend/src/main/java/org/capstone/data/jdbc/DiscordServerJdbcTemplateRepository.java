@@ -64,6 +64,7 @@ public class DiscordServerJdbcTemplateRepository implements DiscordServerReposit
 
     @Override
     public boolean deleteById(long discordServerId) {
+        jdbcTemplate.update("delete from discord_server_clip where discord_server_id = ?;", discordServerId);
         return jdbcTemplate.update("delete from discord_server where discord_server_id = ?;", discordServerId) > 0;
     }
 }

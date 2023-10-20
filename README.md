@@ -170,7 +170,7 @@
 	 - [ ] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
 ### Implement Playlist  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `PlaylistJdbcTemplateRepository` class
-	- [ ] `List<Playlist> findByUser(int userId)`
+	- [ ] `List<Playlist> findByUserId(int userId)`
 	- [ ] `Playlist findById(int playlistId)`
 	- [ ] `Playlist add(Playlist playlist)`
 	- [ ] `boolean update(Playlist playlist)`
