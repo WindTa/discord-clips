@@ -1,11 +1,11 @@
-package org.capstone.data;
+package org.capstone.data.jdbc;
 
+import org.capstone.data.interfaces.DiscordUserRepository;
 import org.capstone.data.mappers.DiscordUserMapper;
 import org.capstone.models.DiscordUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -64,6 +64,20 @@ public class DiscordUserJdbcTemplateRepository implements DiscordUserRepository 
 
     @Override
     public boolean deleteById(long discordUserId) {
+        jdbcTemplate.update(
+                """
+                    delete from discord_server_clip 
+                    where clip_id in 
+                        (select clip_id from clip where discord_user_id = ?); 
+                    """, discordUserId);
+        jdbcTemplate.update(
+                    """
+                    delete from playlist_clip 
+                    where clip_id in 
+                        (select clip_id from clip where discord_user_id = ?); 
+                    """, discordUserId);
+        jdbcTemplate.update("delete from clip where discord_user_id = ?;", discordUserId);
+        jdbcTemplate.update("delete from playlist where discord_user_id = ?;", discordUserId);
         return jdbcTemplate.update("delete from discord_user where discord_user_id = ?;", discordUserId) > 0;
     }
 }

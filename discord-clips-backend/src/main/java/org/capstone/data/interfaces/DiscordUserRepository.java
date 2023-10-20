@@ -1,4 +1,4 @@
-package org.capstone.data;
+package org.capstone.data.interfaces;
 
 import org.capstone.models.DiscordUser;
 import org.springframework.transaction.annotation.Transactional;
