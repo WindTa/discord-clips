@@ -6,9 +6,11 @@ import org.capstone.data.mappers.PlaylistMapper;
 import org.capstone.models.Playlist;
 import org.capstone.models.PlaylistClip;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -53,17 +55,43 @@ public class PlaylistJdbcTemplateRepository implements PlaylistRepository {
 
     @Override
     public Playlist add(Playlist playlist) {
-        return null;
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("playlist")
+                .usingGeneratedKeyColumns("playlist_id");
+
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("playlist_name", playlist.getPlaylistName());
+        args.put("discord_user_id", playlist.getDiscordUserId());
+
+        int playlistId = insert.executeAndReturnKey(args).intValue();
+        playlist.setPlaylistId(playlistId);
+
+        return playlist;
     }
 
     @Override
     public boolean update(Playlist playlist) {
-        return false;
+        final String sql =
+                """
+                    update playlist set
+                        playlist_name = ?
+                    where playlist_id = ?
+                        and discord_user_id = ?;
+                """;
+
+        boolean result = jdbcTemplate.update(sql,
+                playlist.getPlaylistName(),
+                playlist.getPlaylistId(),
+                playlist.getDiscordUserId()) > 0;
+
+        return result;
     }
 
     @Override
+    @Transactional
     public boolean deleteById(int playlistId) {
-        return false;
+        jdbcTemplate.update("delete from playlist_clip where playlist_id = ?;", playlistId);
+        return jdbcTemplate.update("delete from playlist where playlist_id = ?;", playlistId) > 0;
     }
 
     private void addClips(Playlist playlist) {

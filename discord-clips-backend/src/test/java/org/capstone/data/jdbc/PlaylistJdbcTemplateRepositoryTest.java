@@ -9,11 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class PlaylistJdbcTemplateRepositoryTest {
+
+    final static int NEXT_ID = 2;
 
     @Autowired
     PlaylistJdbcTemplateRepository playlistJdbcTemplateRepository;
@@ -50,6 +51,39 @@ public class PlaylistJdbcTemplateRepositoryTest {
         assertEquals(expected, actual);
         assertEquals(1, actual.getClips().size());
         assertEquals(1, actual.getClips().get(0).getDisplayOrder());
+    }
+
+    @Test
+    void shouldAdd() {
+        Playlist playlist = makeWindTasPlaylist();
+        playlist.setPlaylistName("Playlist 2");
+
+        Playlist actual = playlistJdbcTemplateRepository.add(playlist);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getPlaylistId());
+    }
+
+    @Test
+    void shouldUpdate() {
+        Playlist playlist = makeWindTasPlaylist();
+        playlist.setPlaylistName("Updated Playlist");
+
+        // Check if update was successful
+        assertTrue(playlistJdbcTemplateRepository.update(playlist));
+
+        // Double check playlist was updated
+        Playlist actual = playlistJdbcTemplateRepository.findById(playlist.getPlaylistId());
+        assertEquals(playlist.getPlaylistName(), actual.getPlaylistName());
+
+        // Unhappy path
+        playlist.setPlaylistId(-1);
+        assertFalse(playlistJdbcTemplateRepository.update(playlist));
+    }
+
+    @Test
+    void shouldDelete() {
+        assertTrue(playlistJdbcTemplateRepository.deleteById(1));
+        assertFalse(playlistJdbcTemplateRepository.deleteById(1));
     }
 
     private Playlist makeWindTasPlaylist() {
