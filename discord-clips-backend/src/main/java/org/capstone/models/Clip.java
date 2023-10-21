@@ -3,15 +3,16 @@ package org.capstone.models;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Clip {
     private int clipId;
     private String clipName;
     private String youtubeId;
-    private BigDecimal startTime;
-    private BigDecimal endTime;
-    private BigDecimal volume;
-    private BigDecimal playbackSpeed;
+    private double startTime;
+    private double endTime;
+    private double volume;
+    private double playbackSpeed;
     private long discordUserId;
 
     private List<Playlist> playlists = new ArrayList<>();
@@ -40,35 +41,35 @@ public class Clip {
         this.youtubeId = youtubeId;
     }
 
-    public BigDecimal getStartTime() {
+    public double getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(BigDecimal startTime) {
+    public void setStartTime(double startTime) {
         this.startTime = startTime;
     }
 
-    public BigDecimal getEndTime() {
+    public double getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(BigDecimal endTime) {
+    public void setEndTime(double endTime) {
         this.endTime = endTime;
     }
 
-    public BigDecimal getVolume() {
+    public double getVolume() {
         return volume;
     }
 
-    public void setVolume(BigDecimal volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 
-    public BigDecimal getPlaybackSpeed() {
+    public double getPlaybackSpeed() {
         return playbackSpeed;
     }
 
-    public void setPlaybackSpeed(BigDecimal playbackSpeed) {
+    public void setPlaybackSpeed(double playbackSpeed) {
         this.playbackSpeed = playbackSpeed;
     }
 
@@ -86,5 +87,18 @@ public class Clip {
 
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clip clip = (Clip) o;
+        return clipId == clip.clipId && discordUserId == clip.discordUserId && Objects.equals(clipName, clip.clipName) && Objects.equals(youtubeId, clip.youtubeId) && Objects.equals(startTime, clip.startTime) && Objects.equals(endTime, clip.endTime) && Objects.equals(volume, clip.volume) && Objects.equals(playbackSpeed, clip.playbackSpeed) && Objects.equals(playlists, clip.playlists);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clipId, clipName, youtubeId, startTime, endTime, volume, playbackSpeed, discordUserId, playlists);
     }
 }

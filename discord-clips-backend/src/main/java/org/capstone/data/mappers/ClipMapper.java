@@ -13,10 +13,10 @@ public class ClipMapper implements RowMapper<Clip> {
         clip.setClipId(rs.getInt("clip_id"));
         clip.setClipName(rs.getString("clip_name"));
         clip.setYoutubeId(rs.getString("youtube_id"));
-        clip.setStartTime(rs.getBigDecimal("start_time"));
-        clip.setEndTime(rs.getBigDecimal("end_time"));
-        clip.setVolume(rs.getBigDecimal("volume"));
-        clip.setPlaybackSpeed(rs.getBigDecimal("playback_speed"));
+        clip.setStartTime(rs.getDouble("start_time"));
+        clip.setEndTime(rs.getDouble("end_time"));
+        clip.setVolume(rs.getDouble("volume"));
+        clip.setPlaybackSpeed(rs.getDouble("playback_speed"));
         clip.setDiscordUserId(rs.getLong("discord_user_id"));
 
         return clip;

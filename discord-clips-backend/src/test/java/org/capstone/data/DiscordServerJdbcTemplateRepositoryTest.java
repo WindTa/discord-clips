@@ -56,7 +56,7 @@ class DiscordServerJdbcTemplateRepositoryTest {
         assertEquals(discordServer, actual);
 
         // Unhappy path
-        discordServer.setDiscordServerId(0);
+        discordServer.setDiscordServerId(-1);
         assertFalse(discordServerRepository.update(discordServer));
     }
 

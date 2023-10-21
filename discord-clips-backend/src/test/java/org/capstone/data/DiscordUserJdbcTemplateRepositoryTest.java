@@ -27,7 +27,7 @@ class DiscordUserJdbcTemplateRepositoryTest {
     void findById() {
         DiscordUser windta = discordUserRepository.findById(221863292681977857L);
         assertEquals(221863292681977857L, windta.getDiscordUserId());
-        assertEquals("windta", windta.getUsername());
+        assertEquals("WindTa", windta.getUsername());
 
         DiscordUser invalid = discordUserRepository.findById(234124235L);
         assertNull(invalid);
