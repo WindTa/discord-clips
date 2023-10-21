@@ -10,7 +10,7 @@ public class KnownGoodState {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    void set() {
+    public void set() {
         jdbcTemplate.update("call set_known_good_state();");
     }
 }

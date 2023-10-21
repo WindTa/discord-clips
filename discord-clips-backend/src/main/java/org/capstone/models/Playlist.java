@@ -2,6 +2,7 @@ package org.capstone.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Playlist {
     private int playlistId;
@@ -40,5 +41,18 @@ public class Playlist {
 
     public void setClips(List<PlaylistClip> clips) {
         this.clips = clips;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Playlist playlist = (Playlist) o;
+        return playlistId == playlist.playlistId && discordUserId == playlist.discordUserId && Objects.equals(playlistName, playlist.playlistName) && Objects.equals(clips, playlist.clips);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playlistId, playlistName, discordUserId, clips);
     }
 }

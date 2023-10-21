@@ -1,5 +1,6 @@
-package org.capstone.data;
+package org.capstone.data.jdbc;
 
+import org.capstone.data.KnownGoodState;
 import org.capstone.data.jdbc.DiscordServerJdbcTemplateRepository;
 import org.capstone.models.DiscordServer;
 import org.junit.jupiter.api.BeforeEach;
