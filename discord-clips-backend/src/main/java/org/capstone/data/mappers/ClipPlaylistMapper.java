@@ -11,7 +11,6 @@ public class ClipPlaylistMapper implements RowMapper<ClipPlaylist> {
     public ClipPlaylist mapRow(ResultSet rs, int i) throws SQLException {
         ClipPlaylist clipPlaylist = new ClipPlaylist();
 
-        clipPlaylist.setClipId(rs.getInt("clip_id"));
         clipPlaylist.setDisplayOrder(rs.getInt("display_order"));
 
         PlaylistMapper playlistMapper = new PlaylistMapper();

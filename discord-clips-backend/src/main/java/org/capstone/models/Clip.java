@@ -15,7 +15,7 @@ public class Clip {
     private double playbackSpeed;
     private long discordUserId;
 
-    private List<Playlist> playlists = new ArrayList<>();
+    private List<ClipPlaylist> playlists = new ArrayList<>();
 
     public int getClipId() {
         return clipId;
@@ -81,11 +81,11 @@ public class Clip {
         this.discordUserId = discordUserId;
     }
 
-    public List<Playlist> getPlaylists() {
+    public List<ClipPlaylist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(List<Playlist> playlists) {
+    public void setPlaylists(List<ClipPlaylist> playlists) {
         this.playlists = playlists;
     }
 

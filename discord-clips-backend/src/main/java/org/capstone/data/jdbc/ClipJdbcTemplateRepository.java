@@ -2,7 +2,9 @@ package org.capstone.data.jdbc;
 
 import org.capstone.data.interfaces.ClipRepository;
 import org.capstone.data.mappers.ClipMapper;
+import org.capstone.data.mappers.ClipPlaylistMapper;
 import org.capstone.models.Clip;
+import org.capstone.models.ClipPlaylist;
 import org.capstone.models.Playlist;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,11 +41,31 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
                 where clip_id = ?;        
                 """;
 
-        return jdbcTemplate.query(sql, new ClipMapper(), clipId)
+
+
+        Clip clip = jdbcTemplate.query(sql, new ClipMapper(), clipId)
                 .stream().findFirst().orElse(null);
+
+        if (clip != null) {
+            addPlaylists(clip);
+        }
+
+        return clip;
     }
 
     private void addPlaylists(Clip clip) {
+        final String sql =
+                """
+                select
+                    pc.display_order,
+                    p.playlist_id, p.playlist_name, p.discord_user_id
+                from playlist_clip pc
+                inner join playlist p on pc.playlist_id = p.playlist_id
+                inner join clip c on pc.clip_id = c.clip_id
+                where pc.clip_id = ?;
+                """;
 
+        List<ClipPlaylist> clipPlaylists = jdbcTemplate.query(sql, new ClipPlaylistMapper(), clip.getClipId());
+        clip.setPlaylists(clipPlaylists);
     }
 }

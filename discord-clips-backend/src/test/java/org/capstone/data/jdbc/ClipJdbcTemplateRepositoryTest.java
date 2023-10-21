@@ -47,8 +47,11 @@ class ClipJdbcTemplateRepositoryTest {
     void findById() {
         Clip expected = makeWindTaClip();
         Clip actual = clipJdbcTemplateRepository.findById(1);
+        expected.setPlaylists(actual.getPlaylists());
 
         assertEquals(expected, actual);
+        assertEquals(1, actual.getPlaylists().size());
+        assertEquals(1, actual.getPlaylists().get(0).getDisplayOrder());
     }
 
     private Clip makeWindTaClip() {

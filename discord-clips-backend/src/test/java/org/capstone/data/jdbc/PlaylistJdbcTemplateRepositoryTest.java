@@ -45,8 +45,11 @@ public class PlaylistJdbcTemplateRepositoryTest {
     void findById() {
         Playlist expected = makeWindTasPlaylist();
         Playlist actual = playlistJdbcTemplateRepository.findById(1);
+        expected.setClips(actual.getClips());
 
         assertEquals(expected, actual);
+        assertEquals(1, actual.getClips().size());
+        assertEquals(1, actual.getClips().get(0).getDisplayOrder());
     }
 
     private Playlist makeWindTasPlaylist() {
