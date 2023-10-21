@@ -7,8 +7,11 @@ import org.capstone.models.Clip;
 import org.capstone.models.ClipPlaylist;
 import org.capstone.models.Playlist;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -53,17 +56,55 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
 
     @Override
     public Clip add(Clip clip) {
-        return null;
+        SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("clip")
+                .usingGeneratedKeyColumns("clip_id");
+
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("clip_name", clip.getClipName());
+        args.put("youtube_id", clip.getYoutubeId());
+        args.put("start_time", clip.getStartTime());
+        args.put("end_time", clip.getEndTime());
+        args.put("volume", clip.getVolume());
+        args.put("playback_speed", clip.getPlaybackSpeed());
+        args.put("discord_user_id", clip.getDiscordUserId());
+
+        int clipId = insert.executeAndReturnKey(args).intValue();
+        clip.setClipId(clipId);
+
+        return clip;
     }
 
     @Override
     public boolean update(Clip clip) {
-        return false;
+        final String sql =
+                """
+                    update clip set
+                        clip_name = ?,
+                        youtube_id = ?,
+                        start_time = ?,
+                        end_time = ?,
+                        volume = ?,
+                        playback_speed = ?
+                    where clip_id = ?
+                        and discord_user_id = ?;
+                """;
+
+        boolean result = jdbcTemplate.update(sql,
+                clip.getClipName(), clip.getYoutubeId(),
+                clip.getStartTime(), clip.getEndTime(),
+                clip.getVolume(), clip.getPlaybackSpeed(),
+                clip.getClipId(), clip.getDiscordUserId()) > 0;
+
+        return result;
     }
 
     @Override
+    @Transactional
     public boolean deleteById(int clipId) {
-        return false;
+        jdbcTemplate.update("delete from playlist_clip where clip_id = ?;", clipId);
+        jdbcTemplate.update("delete from discord_server_clip where clip_id = ?;", clipId);
+        return jdbcTemplate.update("delete from clip where clip_id = ?;", clipId) > 0;
     }
 
     private void addPlaylists(Clip clip) {

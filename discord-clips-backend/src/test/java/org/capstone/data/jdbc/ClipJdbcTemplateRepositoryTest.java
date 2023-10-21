@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ClipJdbcTemplateRepositoryTest {
+    private static int NEXT_ID = 3;
 
     @Autowired
     ClipJdbcTemplateRepository clipJdbcTemplateRepository;
@@ -52,6 +53,39 @@ class ClipJdbcTemplateRepositoryTest {
         assertEquals(expected, actual);
         assertEquals(1, actual.getPlaylists().size());
         assertEquals(1, actual.getPlaylists().get(0).getDisplayOrder());
+    }
+
+    @Test
+    void shouldAdd() {
+        Clip clip = makeWindTaClip();
+        clip.setClipName("New Clip");
+
+        Clip actual = clipJdbcTemplateRepository.add(clip);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID, actual.getClipId());
+    }
+
+    @Test
+    void shouldUpdate() {
+        Clip clip = makeWindTaClip();
+        clip.setClipName("Updated Clip");
+
+        // Check if update was success
+        assertTrue(clipJdbcTemplateRepository.update(clip));
+
+        // Double check clip was updated
+        Clip actual = clipJdbcTemplateRepository.findById(clip.getClipId());
+        assertEquals(clip.getClipName(), actual.getClipName());
+
+        // Unhappy path
+        clip.setClipId(-1);
+        assertFalse(clipJdbcTemplateRepository.update(clip));
+    }
+
+    @Test
+    void shouldDelete() {
+        assertTrue(clipJdbcTemplateRepository.deleteById(1));
+        assertFalse(clipJdbcTemplateRepository.deleteById(1));
     }
 
     private Clip makeWindTaClip() {
