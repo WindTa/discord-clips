@@ -65,22 +65,27 @@ create table discord_server_clip (
 
 -- insert default values
 insert into discord_user (discord_user_id, username) values
-	(221863292681977857, 'windta');
+	(221863292681977857, 'WindTa'),
+    (400148172724502538, 'Xong Xina');
 
 insert into discord_server (discord_server_id, servername) values
+	(0, "Default"),
     (1161381438839607358, "WindTa's server");
     
 insert into playlist (playlist_name, discord_user_id) values
 	('My Playlist', 221863292681977857);
     
 insert into clip (clip_name, youtube_id, start_time, end_time, volume, playback_speed, discord_user_id) values
-	('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857);
+	('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857),
+    ('My Clip', 'dQw4w9WgXcQ', 5.0, 10.0, 1.0, 1.0, 400148172724502538);
+    
     
 insert into playlist_clip (playlist_id, clip_id, display_order) values
 	(1, 1, 1);
     
 insert into discord_server_clip (discord_server_id, clip_id) values
-	(1161381438839607358, 1);
+	(1161381438839607358, 1),
+    (0, 2);
     
 -- set known good state
 delimiter //
@@ -99,22 +104,27 @@ begin
     delete from discord_user;
 
     insert into discord_user (discord_user_id, username) values
-		(221863292681977857, 'windta');
+	(221863292681977857, 'WindTa'),
+    (400148172724502538, 'Xong Xina');
 
 	insert into discord_server (discord_server_id, servername) values
+		(0, "Default"),
 		(1161381438839607358, "WindTa's server");
 		
 	insert into playlist (playlist_name, discord_user_id) values
 		('My Playlist', 221863292681977857);
 		
 	insert into clip (clip_name, youtube_id, start_time, end_time, volume, playback_speed, discord_user_id) values
-		('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857);
+		('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857),
+		('My Clip', 'dQw4w9WgXcQ', 5.0, 10.0, 1.0, 1.0, 400148172724502538);
+		
 		
 	insert into playlist_clip (playlist_id, clip_id, display_order) values
 		(1, 1, 1);
 		
 	insert into discord_server_clip (discord_server_id, clip_id) values
-		(1161381438839607358, 1);
+		(1161381438839607358, 1),
+		(0, 2);
     
 end //
 delimiter ;

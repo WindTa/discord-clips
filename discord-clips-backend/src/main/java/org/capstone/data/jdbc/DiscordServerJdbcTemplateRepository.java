@@ -6,6 +6,7 @@ import org.capstone.models.DiscordServer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -63,6 +64,7 @@ public class DiscordServerJdbcTemplateRepository implements DiscordServerReposit
     }
 
     @Override
+    @Transactional
     public boolean deleteById(long discordServerId) {
         jdbcTemplate.update("delete from discord_server_clip where discord_server_id = ?;", discordServerId);
         return jdbcTemplate.update("delete from discord_server where discord_server_id = ?;", discordServerId) > 0;

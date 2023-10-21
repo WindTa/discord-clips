@@ -6,6 +6,7 @@ import org.capstone.models.DiscordUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -63,6 +64,7 @@ public class DiscordUserJdbcTemplateRepository implements DiscordUserRepository 
     }
 
     @Override
+    @Transactional
     public boolean deleteById(long discordUserId) {
         jdbcTemplate.update(
                 """
