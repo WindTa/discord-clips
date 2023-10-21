@@ -1,5 +1,6 @@
 package org.capstone.data.interfaces;
 
+import org.capstone.models.Clip;
 import org.capstone.models.Playlist;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,4 +11,10 @@ public interface PlaylistRepository {
 
     @Transactional
     Playlist findById(int playlistId);
+
+    Playlist add(Playlist playlist);
+    boolean update(Playlist playlist);
+
+    @Transactional
+    boolean deleteById(int playlistId);
 }

@@ -10,4 +10,10 @@ public interface ClipRepository {
 
     @Transactional
     Clip findById(int clipId);
+
+    Clip add(Clip clip);
+    boolean update(Clip clip);
+
+    @Transactional
+    boolean deleteById(int clipId);
 }

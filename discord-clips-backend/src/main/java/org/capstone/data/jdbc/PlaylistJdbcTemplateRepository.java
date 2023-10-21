@@ -7,6 +7,7 @@ import org.capstone.models.Playlist;
 import org.capstone.models.PlaylistClip;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class PlaylistJdbcTemplateRepository implements PlaylistRepository {
     }
 
     @Override
+    @Transactional
     public Playlist findById(int playlistId) {
         final String sql =
                 """
@@ -47,6 +49,21 @@ public class PlaylistJdbcTemplateRepository implements PlaylistRepository {
         }
 
         return playlist;
+    }
+
+    @Override
+    public Playlist add(Playlist playlist) {
+        return null;
+    }
+
+    @Override
+    public boolean update(Playlist playlist) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(int playlistId) {
+        return false;
     }
 
     private void addClips(Playlist playlist) {

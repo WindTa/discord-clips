@@ -41,8 +41,6 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
                 where clip_id = ?;        
                 """;
 
-
-
         Clip clip = jdbcTemplate.query(sql, new ClipMapper(), clipId)
                 .stream().findFirst().orElse(null);
 
@@ -51,6 +49,21 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
         }
 
         return clip;
+    }
+
+    @Override
+    public Clip add(Clip clip) {
+        return null;
+    }
+
+    @Override
+    public boolean update(Clip clip) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(int clipId) {
+        return false;
     }
 
     private void addPlaylists(Clip clip) {
