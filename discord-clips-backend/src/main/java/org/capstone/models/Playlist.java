@@ -11,6 +11,12 @@ public class Playlist {
 
     private List<PlaylistClip> clips = new ArrayList<>();
 
+    public Playlist(int playlistId, String playlistName, long discordUserId) {
+        this.playlistId = playlistId;
+        this.playlistName = playlistName;
+        this.discordUserId = discordUserId;
+    }
+
     public int getPlaylistId() {
         return playlistId;
     }

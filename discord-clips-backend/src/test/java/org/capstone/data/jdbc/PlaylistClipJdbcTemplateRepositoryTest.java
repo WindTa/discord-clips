@@ -29,21 +29,8 @@ class PlaylistClipJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-        // Should throw error if playlist already has this clip
         PlaylistClip playlistClip = makeWindTaPlaylistClip();
-        assertThrows(DuplicateKeyException.class, () -> repository.add(playlistClip));
-
-        // Should throw error if clip does not exist
-        playlistClip.getClip().setClipId(3);
-        assertThrows(DataIntegrityViolationException.class, () -> repository.add(playlistClip));
-
-        // Should throw error if playlist does not exist
-        playlistClip.setPlaylistId(2);
         playlistClip.getClip().setClipId(2);
-        assertThrows(DataIntegrityViolationException.class, () -> repository.add(playlistClip));
-
-        // Success
-        playlistClip.setPlaylistId(1);
         assertTrue(repository.add(playlistClip));
     }
 

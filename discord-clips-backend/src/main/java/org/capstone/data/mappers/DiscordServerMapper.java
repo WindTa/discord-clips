@@ -9,9 +9,10 @@ import java.sql.SQLException;
 public class DiscordServerMapper implements RowMapper<DiscordServer> {
     @Override
     public DiscordServer mapRow(ResultSet resultSet, int i) throws SQLException {
-        DiscordServer discordServer = new DiscordServer();
-        discordServer.setDiscordServerId(resultSet.getLong("discord_server_id"));
-        discordServer.setServername(resultSet.getString("servername"));
+        DiscordServer discordServer = new DiscordServer(
+                resultSet.getLong("discord_server_id"),
+                resultSet.getString("servername")
+        );
 
         return discordServer;
     }

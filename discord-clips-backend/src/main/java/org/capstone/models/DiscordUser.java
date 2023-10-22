@@ -6,6 +6,13 @@ public class DiscordUser {
     private long discordUserId;
     private String username;
 
+    public DiscordUser(){};
+
+    public DiscordUser(long discordUserId, String username) {
+        this.discordUserId = discordUserId;
+        this.username = username;
+    }
+
     public long getDiscordUserId() {
         return discordUserId;
     }

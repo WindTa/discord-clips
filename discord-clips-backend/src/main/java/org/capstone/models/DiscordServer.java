@@ -6,6 +6,13 @@ public class DiscordServer {
     private long discordServerId;
     private String username;
 
+    public DiscordServer() {}
+
+    public DiscordServer(long discordServerId, String username) {
+        this.discordServerId = discordServerId;
+        this.username = username;
+    }
+
     public long getDiscordServerId() {
         return discordServerId;
     }

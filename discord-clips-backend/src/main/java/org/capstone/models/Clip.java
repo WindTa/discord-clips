@@ -17,6 +17,17 @@ public class Clip {
 
     private List<ClipPlaylist> playlists = new ArrayList<>();
 
+    public Clip(int clipId, String clipName, String youtubeId, double startTime, double endTime, double volume, double playbackSpeed, long discordUserId) {
+        this.clipId = clipId;
+        this.clipName = clipName;
+        this.youtubeId = youtubeId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.volume = volume;
+        this.playbackSpeed = playbackSpeed;
+        this.discordUserId = discordUserId;
+    }
+
     public int getClipId() {
         return clipId;
     }

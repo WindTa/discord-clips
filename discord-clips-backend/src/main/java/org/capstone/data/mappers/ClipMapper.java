@@ -9,15 +9,16 @@ import java.sql.SQLException;
 public class ClipMapper implements RowMapper<Clip> {
     @Override
     public Clip mapRow(ResultSet rs, int i) throws SQLException {
-        Clip clip = new Clip();
-        clip.setClipId(rs.getInt("clip_id"));
-        clip.setClipName(rs.getString("clip_name"));
-        clip.setYoutubeId(rs.getString("youtube_id"));
-        clip.setStartTime(rs.getDouble("start_time"));
-        clip.setEndTime(rs.getDouble("end_time"));
-        clip.setVolume(rs.getDouble("volume"));
-        clip.setPlaybackSpeed(rs.getDouble("playback_speed"));
-        clip.setDiscordUserId(rs.getLong("discord_user_id"));
+        Clip clip = new Clip(
+                rs.getInt("clip_id"),
+                rs.getString("clip_name"),
+                rs.getString("youtube_id"),
+                rs.getDouble("start_time"),
+                rs.getDouble("end_time"),
+                rs.getDouble("volume"),
+                rs.getDouble("playback_speed"),
+                rs.getLong("discord_user_id")
+        );
 
         return clip;
     }

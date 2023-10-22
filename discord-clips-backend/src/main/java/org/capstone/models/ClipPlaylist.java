@@ -5,6 +5,12 @@ public class ClipPlaylist {
     private Playlist playlist;
     private int displayOrder;
 
+    public ClipPlaylist(int clipId, Playlist playlist, int displayOrder) {
+        this.clipId = clipId;
+        this.playlist = playlist;
+        this.displayOrder = displayOrder;
+    }
+
     public int getClipId() {
         return clipId;
     }
