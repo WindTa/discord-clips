@@ -1,13 +1,16 @@
 package org.capstone.data.jdbc;
 
 import org.capstone.data.KnownGoodState;
-import org.capstone.models.Clip;
 import org.capstone.models.PlaylistClip;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 
+import static org.capstone.DataHelper.makeWindTaPlaylistClip;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -26,31 +29,28 @@ class PlaylistClipJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-/*
-        PlaylistClip playlistClip = makePlaylistClip();
-        assertTrue(repository.add(playlistClip));
-*/
-    }
+        // Should throw error if playlist already has this clip
+        PlaylistClip playlistClip = makeWindTaPlaylistClip();
+        assertThrows(DuplicateKeyException.class, () -> repository.add(playlistClip));
 
-    @Test
-    void shouldUpdate() {
-    }
+        // Should throw error if clip does not exist
+        playlistClip.getClip().setClipId(3);
+        assertThrows(DataIntegrityViolationException.class, () -> repository.add(playlistClip));
 
-    @Test
-    void shouldDelete() {
-    }
+        // Should throw error if playlist does not exist
+        playlistClip.setPlaylistId(2);
+        playlistClip.getClip().setClipId(2);
+        assertThrows(DataIntegrityViolationException.class, () -> repository.add(playlistClip));
 
-/*
-    PlaylistClip makePlaylistClip(int playlistId, int clipId, int displayOrder) {
-        PlaylistClip playlistClip = new PlaylistClip();
+        // Success
         playlistClip.setPlaylistId(1);
-        playlistClip.setDisplayOrder(1);
-
-        Clip clip = new Clip();
-        clip.setClipId(1);
-        clip.setClipName("My Clip");
-        clip.setYoutubeId("fSKQRDq3RkM");
-        clip.setStartTime(5);
+        assertTrue(repository.add(playlistClip));
     }
-*/
+
+    @Test
+    void shouldDeleteByKey() {
+        assertTrue(repository.deleteByKey(1, 1));
+        assertFalse(repository.deleteByKey(1, 1));
+    }
+
 }

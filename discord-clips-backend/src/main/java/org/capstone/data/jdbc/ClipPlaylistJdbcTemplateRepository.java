@@ -1,37 +1,36 @@
 package org.capstone.data.jdbc;
 
-import org.capstone.data.interfaces.PlaylistClipRepository;
-import org.capstone.models.PlaylistClip;
+import org.capstone.data.interfaces.ClipPlaylistRepository;
+import org.capstone.models.ClipPlaylist;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PlaylistClipJdbcTemplateRepository implements PlaylistClipRepository {
-
+public class ClipPlaylistJdbcTemplateRepository implements ClipPlaylistRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public PlaylistClipJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
+    public ClipPlaylistJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public boolean add(PlaylistClip playlistClip) {
+    public boolean add(ClipPlaylist clipPlaylist) {
         final String sql =
                 """
-                    insert into playlist_clip 
+                    insert into playlist_clip
                         (playlist_id, clip_id, display_order)
                     values
                         (?, ?, ?);
                 """;
 
         return jdbcTemplate.update(sql,
-                playlistClip.getPlaylistId(),
-                playlistClip.getClip().getClipId(),
-                playlistClip.getDisplayOrder()) > 0;
+                clipPlaylist.getPlaylist().getPlaylistId(),
+                clipPlaylist.getClipId(),
+                clipPlaylist.getDisplayOrder()) > 0;
     }
 
     @Override
-    public boolean deleteByKey(int playlistId, int clipId) {
+    public boolean deleteByKey(int clipId, int playlistId) {
         final String sql =
                 """
                     delete from playlist_clip

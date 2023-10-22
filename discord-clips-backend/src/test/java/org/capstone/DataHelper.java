@@ -1,9 +1,6 @@
 package org.capstone;
 
-import org.capstone.models.Clip;
-import org.capstone.models.DiscordServer;
-import org.capstone.models.DiscordUser;
-import org.capstone.models.Playlist;
+import org.capstone.models.*;
 
 public class DataHelper {
 
@@ -48,6 +45,25 @@ public class DataHelper {
 
         return playlist;
     }
+
+    public static PlaylistClip makePlaylistClip(int playlistId, Clip clip, int displayOrder) {
+        PlaylistClip playlistClip = new PlaylistClip();
+        playlistClip.setPlaylistId(playlistId);
+        playlistClip.setClip(clip);
+        playlistClip.setDisplayOrder(displayOrder);
+
+        return playlistClip;
+    }
+
+    public static ClipPlaylist makeClipPlaylist(int clipId, Playlist playlist, int displayOrder) {
+        ClipPlaylist clipPlaylist = new ClipPlaylist();
+        clipPlaylist.setClipId(clipId);
+        clipPlaylist.setPlaylist(playlist);
+        clipPlaylist.setDisplayOrder(displayOrder);
+
+        return clipPlaylist;
+    }
+
     public static DiscordUser makeWindTaUser() {
         return makeDiscordUser(221863292681977857L, "WindTa");
     }
@@ -66,4 +82,11 @@ public class DataHelper {
         return makePlaylist(1, "My Playlist", 221863292681977857L);
     }
 
+    public static PlaylistClip makeWindTaPlaylistClip() {
+        return makePlaylistClip(1, makeWindTaClip(), 1);
+    }
+
+    public static ClipPlaylist makeWindTaClipPlaylist() {
+        return makeClipPlaylist(1, makeWindTasPlaylist(), 1);
+    }
 }
