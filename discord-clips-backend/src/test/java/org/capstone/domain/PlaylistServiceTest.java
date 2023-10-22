@@ -110,6 +110,7 @@ class PlaylistServiceTest {
         when(playlistRepository.update(any())).thenReturn(true);
         Result<Playlist> result = service.update(playlist);
         assertEquals(ResultType.SUCCESS, result.getType());
+        assertEquals(0, result.getMessages().size());
 
         // Should be INVALID when not set for update
         playlist.setPlaylistId(0);

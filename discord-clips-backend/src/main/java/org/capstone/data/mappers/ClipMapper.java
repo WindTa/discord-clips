@@ -14,7 +14,7 @@ public class ClipMapper implements RowMapper<Clip> {
                 rs.getString("clip_name"),
                 rs.getString("youtube_id"),
                 rs.getDouble("start_time"),
-                rs.getDouble("end_time"),
+                rs.getDouble("duration"),
                 rs.getDouble("volume"),
                 rs.getDouble("playback_speed"),
                 rs.getLong("discord_user_id")

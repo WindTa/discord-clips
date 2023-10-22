@@ -27,7 +27,7 @@ create table clip (
     clip_name varchar(50) not null,
     youtube_id varchar(11) not null,
     start_time decimal not null,
-    end_time decimal not null,
+    duration decimal not null,
     volume decimal not null,
     playback_speed decimal not null,
     discord_user_id bigint not null,
@@ -75,7 +75,7 @@ insert into discord_server (discord_server_id, servername) values
 insert into playlist (playlist_name, discord_user_id) values
 	('My Playlist', 221863292681977857);
     
-insert into clip (clip_name, youtube_id, start_time, end_time, volume, playback_speed, discord_user_id) values
+insert into clip (clip_name, youtube_id, start_time, duration, volume, playback_speed, discord_user_id) values
 	('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857),
     ('My Clip', 'dQw4w9WgXcQ', 5.0, 10.0, 1.0, 1.0, 400148172724502538);
     
@@ -114,7 +114,7 @@ begin
 	insert into playlist (playlist_name, discord_user_id) values
 		('My Playlist', 221863292681977857);
 		
-	insert into clip (clip_name, youtube_id, start_time, end_time, volume, playback_speed, discord_user_id) values
+	insert into clip (clip_name, youtube_id, start_time, duration, volume, playback_speed, discord_user_id) values
 		('My Clip', 'fSKQRDq3RkM', 5.0, 10.0, 1.0, 1.0, 221863292681977857),
 		('My Clip', 'dQw4w9WgXcQ', 5.0, 10.0, 1.0, 1.0, 400148172724502538);
 		

@@ -1,5 +1,7 @@
 package org.capstone.models;
 
+import java.util.Objects;
+
 public class ClipPlaylist {
     private int clipId;
     private Playlist playlist;
@@ -33,5 +35,18 @@ public class ClipPlaylist {
 
     public void setDisplayOrder(int displayOrder) {
         this.displayOrder = displayOrder;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClipPlaylist that = (ClipPlaylist) o;
+        return clipId == that.clipId && displayOrder == that.displayOrder && Objects.equals(playlist, that.playlist);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clipId, playlist, displayOrder);
     }
 }

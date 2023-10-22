@@ -5,7 +5,6 @@ import org.capstone.data.mappers.ClipMapper;
 import org.capstone.data.mappers.ClipPlaylistMapper;
 import org.capstone.models.Clip;
 import org.capstone.models.ClipPlaylist;
-import org.capstone.models.Playlist;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -64,7 +63,7 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
         args.put("clip_name", clip.getClipName());
         args.put("youtube_id", clip.getYoutubeId());
         args.put("start_time", clip.getStartTime());
-        args.put("end_time", clip.getEndTime());
+        args.put("duration", clip.getDuration());
         args.put("volume", clip.getVolume());
         args.put("playback_speed", clip.getPlaybackSpeed());
         args.put("discord_user_id", clip.getDiscordUserId());
@@ -83,7 +82,7 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
                         clip_name = ?,
                         youtube_id = ?,
                         start_time = ?,
-                        end_time = ?,
+                        duration = ?,
                         volume = ?,
                         playback_speed = ?
                     where clip_id = ?
@@ -92,7 +91,7 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
 
         boolean result = jdbcTemplate.update(sql,
                 clip.getClipName(), clip.getYoutubeId(),
-                clip.getStartTime(), clip.getEndTime(),
+                clip.getStartTime(), clip.getDuration(),
                 clip.getVolume(), clip.getPlaybackSpeed(),
                 clip.getClipId(), clip.getDiscordUserId()) > 0;
 

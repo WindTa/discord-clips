@@ -100,7 +100,7 @@ public class PlaylistJdbcTemplateRepository implements PlaylistRepository {
                 select
                     pc.playlist_id, pc.display_order, 
                     c.clip_id, c.clip_name, c.youtube_id,
-                    c.start_time, c.end_time,
+                    c.start_time, c.duration,
                     c.volume, c.playback_speed,
                     c.discord_user_id
                 from playlist_clip pc
