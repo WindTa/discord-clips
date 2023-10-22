@@ -98,7 +98,7 @@ public class PlaylistJdbcTemplateRepository implements PlaylistRepository {
         final String sql =
                 """
                 select
-                    pc.display_order,
+                    pc.playlist_id, pc.display_order, 
                     c.clip_id, c.clip_name, c.youtube_id,
                     c.start_time, c.end_time,
                     c.volume, c.playback_speed,

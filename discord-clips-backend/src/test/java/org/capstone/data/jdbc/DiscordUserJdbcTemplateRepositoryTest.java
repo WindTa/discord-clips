@@ -1,5 +1,6 @@
 package org.capstone.data.jdbc;
 
+import org.capstone.DataHelper;
 import org.capstone.data.KnownGoodState;
 import org.capstone.data.jdbc.DiscordUserJdbcTemplateRepository;
 import org.capstone.models.DiscordUser;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.capstone.DataHelper.makeWindTaUser;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -36,7 +38,7 @@ class DiscordUserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordUser discordUser = makeWindTaUser();
         discordUser.setDiscordUserId(discordUser.getDiscordUserId()+1);
         DiscordUser actual = discordUserRepository.add(discordUser);
         assertNotNull(actual);
@@ -45,7 +47,7 @@ class DiscordUserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate() {
-        DiscordUser discordUser = makeDiscordUser();
+        DiscordUser discordUser = makeWindTaUser();
         discordUser.setUsername("New");
 
         // Check if update was successful
@@ -66,11 +68,4 @@ class DiscordUserJdbcTemplateRepositoryTest {
         assertFalse(discordUserRepository.deleteById(221863292681977857L));
     }
 
-    private DiscordUser makeDiscordUser() {
-        DiscordUser discordUser = new DiscordUser();
-        discordUser.setDiscordUserId(221863292681977857L);
-        discordUser.setUsername("windta");
-
-        return discordUser;
-    }
 }

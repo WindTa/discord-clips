@@ -1,5 +1,6 @@
 package org.capstone.data.jdbc;
 
+import org.capstone.DataHelper;
 import org.capstone.data.KnownGoodState;
 import org.capstone.data.jdbc.DiscordServerJdbcTemplateRepository;
 import org.capstone.models.DiscordServer;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.capstone.DataHelper.makeWindTaServer;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -26,7 +28,7 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
     @Test
     void findById() {
-        DiscordServer expected = makeDiscordServer();
+        DiscordServer expected = makeWindTaServer();
         DiscordServer actual = discordServerRepository.findById(expected.getDiscordServerId());
         assertEquals(expected.getDiscordServerId(), actual.getDiscordServerId());
         assertEquals(expected.getServername(), actual.getServername());
@@ -37,7 +39,7 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAdd() {
-        DiscordServer discordServer = makeDiscordServer();
+        DiscordServer discordServer = makeWindTaServer();
         discordServer.setDiscordServerId(discordServer.getDiscordServerId()+1);
         DiscordServer actual = discordServerRepository.add(discordServer);
         assertNotNull(actual);
@@ -46,7 +48,7 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate() {
-        DiscordServer discordServer = makeDiscordServer();
+        DiscordServer discordServer = makeWindTaServer();
         discordServer.setServername("New");
 
         // Check if update was successful
@@ -63,16 +65,9 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDelete() {
-        DiscordServer discordServer = makeDiscordServer();
+        DiscordServer discordServer = makeWindTaServer();
         assertTrue(discordServerRepository.deleteById(discordServer.getDiscordServerId()));
         assertFalse(discordServerRepository.deleteById(discordServer.getDiscordServerId()));
     }
 
-    private DiscordServer makeDiscordServer() {
-        DiscordServer discordServer = new DiscordServer();
-        discordServer.setDiscordServerId(1161381438839607358L);
-        discordServer.setServername("WindTa's server");
-
-        return discordServer;
-    }
 }

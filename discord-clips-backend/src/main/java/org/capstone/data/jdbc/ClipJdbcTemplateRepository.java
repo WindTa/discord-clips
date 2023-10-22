@@ -111,7 +111,7 @@ public class ClipJdbcTemplateRepository implements ClipRepository {
         final String sql =
                 """
                 select
-                    pc.display_order,
+                    pc.clip_id, pc.display_order,
                     p.playlist_id, p.playlist_name, p.discord_user_id
                 from playlist_clip pc
                 inner join playlist p on pc.playlist_id = p.playlist_id

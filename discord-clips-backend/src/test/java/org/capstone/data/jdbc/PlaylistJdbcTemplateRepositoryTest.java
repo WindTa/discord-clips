@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.capstone.DataHelper.makeWindTasPlaylist;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -86,16 +87,4 @@ public class PlaylistJdbcTemplateRepositoryTest {
         assertFalse(playlistJdbcTemplateRepository.deleteById(1));
     }
 
-    private Playlist makeWindTasPlaylist() {
-        return makePlaylist(1, "My Playlist", 221863292681977857L);
-    }
-
-    private Playlist makePlaylist(int playlistId, String playlistName, long discordUserId) {
-        Playlist playlist = new Playlist();
-        playlist.setPlaylistId(playlistId);
-        playlist.setPlaylistName(playlistName);
-        playlist.setDiscordUserId(discordUserId);
-
-        return playlist;
-    }
 }

@@ -1,6 +1,7 @@
 package org.capstone.data.jdbc;
 
 import org.capstone.data.KnownGoodState;
+import org.capstone.DataHelper;
 import org.capstone.data.jdbc.ClipJdbcTemplateRepository;
 import org.capstone.models.Clip;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.capstone.DataHelper.makeWindTaClip;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -88,27 +90,4 @@ class ClipJdbcTemplateRepositoryTest {
         assertFalse(clipJdbcTemplateRepository.deleteById(1));
     }
 
-    private Clip makeWindTaClip() {
-        return makeClip(1, "My Clip", "fSKQRDq3RkM",
-                5, 10, 1, 1,
-                221863292681977857L);
-    }
-
-    private Clip makeClip(
-            int clipId, String clipName, String youtubeId,
-            double startTime, double endTime,
-            double volume, double playbackSpeed,
-            long discordUserId) {
-        Clip clip = new Clip();
-        clip.setClipId(clipId);
-        clip.setClipName(clipName);
-        clip.setYoutubeId(youtubeId);
-        clip.setStartTime(startTime);
-        clip.setEndTime(endTime);
-        clip.setVolume(volume);
-        clip.setPlaybackSpeed(playbackSpeed);
-        clip.setDiscordUserId(discordUserId);
-
-        return clip;
-    }
 }
