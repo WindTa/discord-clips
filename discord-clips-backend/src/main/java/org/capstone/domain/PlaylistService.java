@@ -4,8 +4,11 @@ import org.capstone.data.interfaces.ClipRepository;
 import org.capstone.data.interfaces.DiscordUserRepository;
 import org.capstone.data.interfaces.PlaylistClipRepository;
 import org.capstone.data.interfaces.PlaylistRepository;
+import org.capstone.models.Clip;
 import org.capstone.models.Playlist;
 import org.capstone.models.PlaylistClip;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -113,8 +116,14 @@ public class PlaylistService {
             return result;
         }
 
-        if (!playlistClipRepository.add(playlistClip)) {
-            result.addMessage("clip not added", ResultType.INVALID);
+        try {
+            if (!playlistClipRepository.add(playlistClip)) {
+                result.addMessage("clip not added", ResultType.INVALID);
+            }
+        } catch (DuplicateKeyException e) {
+            result.addMessage("playlist already has clip", ResultType.CONFLICT);
+        } catch (DataIntegrityViolationException e) {
+            result.addMessage("playlist or clip does not exist", ResultType.NOT_FOUND);
         }
 
         return result;
@@ -129,21 +138,6 @@ public class PlaylistService {
 
         validatePlaylistClip(playlistClip, result);
         if (!result.isSuccess()) {
-            return result;
-        }
-
-        Playlist existingPlaylist = playlistRepository.findById(playlistClip.getPlaylistId());
-        if (existingPlaylist == null) {
-            result.addMessage("playlist does not exist", ResultType.NOT_FOUND);
-            return result;
-        }
-        if (clipRepository.findById(playlistClip.getClip().getClipId()) == null) {
-            result.addMessage("clip does not exist", ResultType.NOT_FOUND);
-            return result;
-        }
-
-        if (existingPlaylist.getClips().contains(playlistClip)) {
-            result.addMessage("playlist already has clip", ResultType.CONFLICT);
             return result;
         }
 

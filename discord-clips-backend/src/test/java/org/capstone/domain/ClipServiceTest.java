@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 
 import static org.capstone.DataHelper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -195,22 +197,15 @@ class ClipServiceTest {
     void shouldNotAddClipPlaylistWhenConstraintErrors() {
         ClipPlaylist clipPlaylist = makeWindTaClipPlaylist();
 
-        // When clip does not exist
-        when(clipRepository.findById(anyInt())).thenReturn(null);
+        // When clip or playlist does not exist
+        when(clipPlaylistRepository.add(clipPlaylist)).thenThrow(DataIntegrityViolationException.class);
         Result<Void> result = service.addPlaylist(clipPlaylist);
         assertEquals(ResultType.NOT_FOUND, result.getType());
-        assertEquals("clip does not exist", result.getMessages().get(0));
-
-        // When playlist does not exist
-        when(clipRepository.findById(anyInt())).thenReturn(makeWindTaClipWithPlaylists());
-        when(playlistRepository.findById(anyInt())).thenReturn(null);
-        result = service.addPlaylist(makeWindTaClipPlaylist());
-        assertEquals(ResultType.NOT_FOUND, result.getType());
-        assertEquals("playlist does not exist", result.getMessages().get(0));
+        assertEquals("clip or playlist does not exist", result.getMessages().get(0));
 
         // When the clip already has the playlist
-        when(playlistRepository.findById(anyInt())).thenReturn(makeWindTasPlaylistWithClips());
-        result = service.addPlaylist(makeWindTaClipPlaylist());
+        when(clipPlaylistRepository.add(any())).thenThrow(DuplicateKeyException.class);
+        result = service.addPlaylist(clipPlaylist);
         assertEquals(ResultType.CONFLICT, result.getType());
         assertEquals("clip already has playlist", result.getMessages().get(0));
     }

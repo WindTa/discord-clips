@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
 
@@ -164,22 +166,15 @@ class PlaylistServiceTest {
     void shouldNotAddPlaylistClipWhenConstraintErrors() {
         PlaylistClip playlistClip = makeWindTaPlaylistClip();
 
-        // When playlist does not exist
-        when(playlistRepository.findById(anyInt())).thenReturn(null);
+        // When clip or playlist does not exist
+        when(playlistClipRepository.add(playlistClip)).thenThrow(DataIntegrityViolationException.class);
         Result<Void> result = service.addClip(playlistClip);
         assertEquals(ResultType.NOT_FOUND, result.getType());
-        assertEquals("playlist does not exist", result.getMessages().get(0));
-
-        // When clip does not exist
-        when(playlistRepository.findById(anyInt())).thenReturn(makeWindTasPlaylistWithClips());
-        when(clipRepository.findById(anyInt())).thenReturn(null);
-        result = service.addClip(makeWindTaPlaylistClip());
-        assertEquals(ResultType.NOT_FOUND, result.getType());
-        assertEquals("clip does not exist", result.getMessages().get(0));
+        assertEquals("playlist or clip does not exist", result.getMessages().get(0));
 
         // When the playlist already has the clip
-        when(clipRepository.findById(anyInt())).thenReturn(makeWindTaClipWithPlaylists());
-        result = service.addClip(makeWindTaPlaylistClip());
+        when(playlistClipRepository.add(any())).thenThrow(DuplicateKeyException.class);
+        result = service.addClip(playlistClip);
         assertEquals(ResultType.CONFLICT, result.getType());
         assertEquals("playlist already has clip", result.getMessages().get(0));
 

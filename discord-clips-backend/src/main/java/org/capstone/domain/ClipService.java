@@ -1,10 +1,9 @@
 package org.capstone.domain;
 
 import org.capstone.data.interfaces.*;
-import org.capstone.models.Clip;
-import org.capstone.models.ClipPlaylist;
-import org.capstone.models.Playlist;
-import org.capstone.models.PlaylistClip;
+import org.capstone.models.*;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -132,8 +131,14 @@ public class ClipService {
             return result;
         }
 
-        if (!clipPlaylistRepository.add(clipPlaylist)) {
-            result.addMessage("playlist not added", ResultType.INVALID);
+        try {
+            if (!clipPlaylistRepository.add(clipPlaylist)) {
+                result.addMessage("playlist not added", ResultType.INVALID);
+            }
+        } catch (DuplicateKeyException e) {
+            result.addMessage("clip already has playlist", ResultType.CONFLICT);
+        } catch (DataIntegrityViolationException e) {
+            result.addMessage("clip or playlist does not exist", ResultType.NOT_FOUND);
         }
 
         return result;
@@ -148,21 +153,6 @@ public class ClipService {
 
         validateClipPlaylist(clipPlaylist, result);
         if (!result.isSuccess()) {
-            return result;
-        }
-
-        Clip existingClip = clipRepository.findById(clipPlaylist.getClipId());
-        if (existingClip == null) {
-            result.addMessage("clip does not exist", ResultType.NOT_FOUND);
-            return result;
-        }
-        if (playlistRepository.findById(clipPlaylist.getPlaylist().getPlaylistId()) == null) {
-            result.addMessage("playlist does not exist", ResultType.NOT_FOUND);
-            return result;
-        }
-
-        if (existingClip.getPlaylists().contains(clipPlaylist)) {
-            result.addMessage("clip already has playlist", ResultType.CONFLICT);
             return result;
         }
 

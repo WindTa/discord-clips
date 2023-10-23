@@ -2,6 +2,8 @@ package org.capstone.data.jdbc;
 
 import org.capstone.data.interfaces.PlaylistClipRepository;
 import org.capstone.models.PlaylistClip;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -36,6 +36,8 @@ public class ErrorResponse {
             status = HttpStatus.BAD_REQUEST;
         } else if (result.getType() == ResultType.NOT_FOUND) {
             status = HttpStatus.NOT_FOUND;
+        } else if (result.getType() == ResultType.CONFLICT) {
+            status = HttpStatus.CONFLICT;
         }
         return new ResponseEntity<>(result.getMessages(), status);
     }
