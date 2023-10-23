@@ -1,16 +1,23 @@
 package org.capstone.domain;
 
+import org.capstone.data.interfaces.DiscordServerClipRepository;
 import org.capstone.data.interfaces.DiscordServerRepository;
 import org.capstone.models.DiscordServer;
+import org.capstone.models.DiscordServerClip;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DiscordServerService {
 
     private final DiscordServerRepository discordServerRepository;
+    private final DiscordServerClipRepository discordServerClipRepository;
 
-    public DiscordServerService(DiscordServerRepository discordServerRepository) {
+    public DiscordServerService(DiscordServerRepository discordServerRepository,
+                                DiscordServerClipRepository discordServerClipRepository) {
         this.discordServerRepository = discordServerRepository;
+        this.discordServerClipRepository = discordServerClipRepository;
     }
 
     public DiscordServer findById(long discordServerId) {
@@ -76,6 +83,51 @@ public class DiscordServerService {
 
         if (Validations.isNullOrBlank(discordServer.getServername())) {
             result.addMessage("servername is required", ResultType.INVALID);
+        }
+    }
+
+    public Result<Void> addClip(DiscordServerClip discordServerClip) {
+        Result<Void> result = validate(discordServerClip);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        try {
+            if (!discordServerClipRepository.add(discordServerClip)) {
+                result.addMessage("clip not added", ResultType.INVALID);
+            }
+        } catch (DuplicateKeyException e) {
+            result.addMessage("server already has clip", ResultType.CONFLICT);
+        } catch (DataIntegrityViolationException e) {
+            result.addMessage("server or clip does not exist", ResultType.NOT_FOUND);
+        }
+
+        return result;
+    }
+
+    public boolean deleteClipByKey(long discordServerId, int clipId) {
+        return discordServerClipRepository.deleteByKey(discordServerId, clipId);
+    }
+
+    private Result<Void> validate(DiscordServerClip discordServerClip) {
+        Result<Void> result = new Result<>();
+
+        validateDiscordServerClip(discordServerClip, result);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        return result;
+    }
+
+    private void validateDiscordServerClip(DiscordServerClip discordServerClip, Result<Void> result) {
+        if (discordServerClip == null) {
+            result.addMessage("discordServerClip cannot be null", ResultType.INVALID);
+            return;
+        }
+
+        if (discordServerClip.getClip() == null) {
+            result.addMessage("clip cannot be null", ResultType.INVALID);
         }
     }
 }

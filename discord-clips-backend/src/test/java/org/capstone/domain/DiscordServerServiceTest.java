@@ -1,13 +1,21 @@
 package org.capstone.domain;
 
+import org.capstone.data.interfaces.ClipRepository;
+import org.capstone.data.interfaces.DiscordServerClipRepository;
 import org.capstone.data.interfaces.DiscordServerRepository;
 import org.capstone.models.DiscordServer;
+import org.capstone.models.DiscordServerClip;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 
+import static org.capstone.DataHelper.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -18,9 +26,16 @@ public class DiscordServerServiceTest {
     @MockBean
     DiscordServerRepository discordServerRepository;
 
+    @MockBean
+    ClipRepository clipRepository;
+
+    @MockBean
+    DiscordServerClipRepository discordServerClipRepository;
+
+
     @Test
     void shouldFindWindTa() {
-        DiscordServer expected = makeDiscordServer();
+        DiscordServer expected = makeWindTaServer();
         when(discordServerRepository.findById(expected.getDiscordServerId())).thenReturn(expected);
         DiscordServer actual = discordServerService.findById(expected.getDiscordServerId());
         assertEquals(expected, actual);
@@ -28,7 +43,7 @@ public class DiscordServerServiceTest {
 
     @Test
     void shouldAddWhenValid() {
-        DiscordServer expected = makeDiscordServer();
+        DiscordServer expected = makeWindTaServer();
         expected.setDiscordServerId(expected.getDiscordServerId()+1);
 
         when(discordServerRepository.add(expected)).thenReturn(expected);
@@ -44,7 +59,7 @@ public class DiscordServerServiceTest {
         assertEquals(ResultType.INVALID, result.getType());
         assertEquals("discord server cannot be null", result.getMessages().get(0));
 
-        discordServer = makeDiscordServer();
+        discordServer = makeWindTaServer();
         when(discordServerRepository.findById(discordServer.getDiscordServerId())).thenReturn(discordServer);
         result = discordServerService.add(discordServer);
         assertEquals(ResultType.INVALID, result.getType());
@@ -64,7 +79,7 @@ public class DiscordServerServiceTest {
 
     @Test
     void shouldUpdate() {
-        DiscordServer discordServer = makeDiscordServer();
+        DiscordServer discordServer = makeWindTaServer();
         discordServer.setServername("New");
 
         when(discordServerRepository.update(discordServer)).thenReturn(true);
@@ -74,7 +89,7 @@ public class DiscordServerServiceTest {
 
     @Test
     void shouldNotUpdateMissing() {
-        DiscordServer discordServer = makeDiscordServer();
+        DiscordServer discordServer = makeWindTaServer();
         discordServer.setDiscordServerId(0);
 
         when(discordServerRepository.update(discordServer)).thenReturn(false);
@@ -89,7 +104,7 @@ public class DiscordServerServiceTest {
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("discord server cannot be null", actual.getMessages().get(0));
 
-        discordServer = makeDiscordServer();
+        discordServer = makeWindTaServer();
         discordServer.setServername(null);
         actual = discordServerService.update(discordServer);
         assertEquals(ResultType.INVALID, actual.getType());
@@ -108,11 +123,55 @@ public class DiscordServerServiceTest {
         assertFalse(discordServerService.deleteById(1));
     }
 
+    @Test
+    void shouldAddDiscordServerClip() {
+        when(discordServerRepository.findById(anyInt())).thenReturn(makeWindTaServerWithClips());
+        when(clipRepository.findById(anyInt())).thenReturn(makeWindTaClipWithPlaylists());
 
-    private DiscordServer makeDiscordServer() {
-        DiscordServer discordServer = new DiscordServer();
-        discordServer.setDiscordServerId(1161381438839607358L);
-        discordServer.setServername("WindTa's server");
-        return discordServer;
+        // Success!
+        when(discordServerClipRepository.add(any())).thenReturn(true);
+        DiscordServerClip discordServerClip = makeWindTaDiscordServerClip();
+        discordServerClip.getClip().setClipId(2);
+        Result<Void> result = discordServerService.addClip(discordServerClip);
+        assertEquals(0, result.getMessages().size());
+
+        //When it somehow fails?
+        when(discordServerClipRepository.add(any())).thenReturn(false);
+        result = discordServerService.addClip(discordServerClip);
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("clip not added", result.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotAddDiscordServerClipWhenInvalid() {
+        // Check if discordServerClip exists
+        Result<Void> result = discordServerService.addClip(null);
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("discordServerClip cannot be null", result.getMessages().get(0));
+
+        // Check if clip is null
+        DiscordServerClip discordServerClip = makeWindTaDiscordServerClip();
+        discordServerClip.setClip(null);
+        result = discordServerService.addClip(discordServerClip);
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("clip cannot be null", result.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotAddDiscordServerClipWhenConstraintErrors() {
+        DiscordServerClip discordServerClip = makeWindTaDiscordServerClip();
+
+        // When server or clip does not exist
+        when(discordServerClipRepository.add(discordServerClip)).thenThrow(DataIntegrityViolationException.class);
+        Result<Void> result = discordServerService.addClip(discordServerClip);
+        assertEquals(ResultType.NOT_FOUND, result.getType());
+        assertEquals("server or clip does not exist", result.getMessages().get(0));
+
+        // When server already has the clip
+        when(discordServerClipRepository.add(any())).thenThrow(DuplicateKeyException.class);
+        result = discordServerService.addClip(discordServerClip);
+        assertEquals(ResultType.CONFLICT, result.getType());
+        assertEquals("server already has clip", result.getMessages().get(0));
     }
 }
+
