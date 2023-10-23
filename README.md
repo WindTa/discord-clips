@@ -86,17 +86,6 @@
 - [x] Create DML schema
 - [x] Create test DML schema
 - [x] Create known good state stored procedure for testing purposes
-### Discord Authentication  (Estimate: 4 hours | Actual:  8+ hours)
-- [ ] Create Spring Boot application
-	- [ ] Configure to support Discord as a OAuth2 provider
-	- [ ] Add `SecurityConfig` class
-		- [ ] Update with new permissions after each feature implementation
-	- [ ] Add `AuthController` class
-		- [ ] Block a request if requests have an invalid access token
-- [ ] Create Discord application
-	- [ ] Generate OAuth2 Link with permissions and redirect
-	- [ ] Create Route to OAuth2 Link
-	- [ ] Any requests made will need the access token
 ### ~~Implement DiscordUser  (Estimate: 2 hours | Actual:  3 hours)~~
 - [x] Add `DiscordUserJdbcTemplateRepository` class
 	- [x] `DiscordUser findById(int discordUserId)`
@@ -114,7 +103,7 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordUser discordUser)`
 	 - [x] `@PutMapping("/{discordUserId}")` `ResponseEntity<Object> update(@PathVariable int discordUserId, @RequestBody DiscordUser discordUser)`
 	 - [x] `@DeleteMapping("/{discordUserId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordUserId)`
-### ~~Implement DiscordServer  (Estimate: 2 hours | Actual:  1 hours)~~
+### ~~Implement DiscordServer  (Estimate: 2 hours | Actual:  2 hours)~~
 - [x] Add `DiscordServerJdbcTemplateRepository` class
 	- [x] `DiscordServer findById(int discordServerId)`
 		- [x] `addClips()`
@@ -132,7 +121,7 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordServer discordServer)`
 	 - [x] `@PutMapping("/{discordServerId}")` `ResponseEntity<Object> update(@PathVariable int discordServerId, @RequestBody DiscordServer discordServer)`
 	 - [x] `@DeleteMapping("/{discordServerId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordServerId)`
-### ~~Implement YouTube Clip  (Estimate: 2 hours | Actual:  hours)~~
+### ~~Implement YouTube Clip  (Estimate: 2 hours | Actual:  3 hours)~~
 - [x] Add `ClipJdbcTemplateRepository` class
 	- [x] `List<Clip> findByUser(int userId)`
 	- [x] `List<Clip> findByServer(int serverId)`
@@ -152,23 +141,23 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody Clip clip)`
 	 - [x] `@PutMapping("/{clipId}")` `ResponseEntity<Object> update(@PathVariable int clipId, @RequestBody Clip clip)`
 	 - [x] `@DeleteMapping("/{clipId}")` `ResponseEntity<Void> deleteById(@PathVariable int clipId)`
-### Implement ServerClip  (Estimate: 2 hours | Actual:  hours)
-- [ ] Add `ServerClipJdbcTemplateRepository` class
-	- [ ] `ServerClip add(ServerClip serverClip)`
-	- [ ] `boolean update(ServerClip serverClip)`
-	- [ ] `boolean deleteByKey(int serverId, int clipId)`
-- [ ] Add `ServerClipRepositoryTest` class
-- [ ] Extract `ServerClipRepository` interface
-- [ ] Add `ServerClipService` class
-	- [ ] `Result<ServerClip> add(ServerClip serverClip)`
-	- [ ] `Result<ServerClip> update(ServerClip serverClip)`
-	- [ ] `boolean deleteByKey(int serverId, int clipId)`
- - [ ] Add `ServerClipServiceTest` class
- - [ ] Add `ServerClipController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody ServerClip serverClip)`
-	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody ServerClip serverClip)`
-	 - [ ] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
-### ~~Implement Playlist  (Estimate: 2 hours | Actual:  hours)~~
+### Implement ServerClip  (Estimate: 2 hours | Actual:  1 hours)
+- [x] Add `ServerClipJdbcTemplateRepository` class
+	- [x] `ServerClip add(ServerClip serverClip)`
+	- [x] `boolean update(ServerClip serverClip)`
+	- [x] `boolean deleteByKey(int serverId, int clipId)`
+- [x] Add `ServerClipRepositoryTest` class
+- [x] Extract `ServerClipRepository` interface
+- [x] Add `ServerClipService` class
+	- [x] `Result<ServerClip> add(ServerClip serverClip)`
+	- [x] `Result<ServerClip> update(ServerClip serverClip)`
+	- [x] `boolean deleteByKey(int serverId, int clipId)`
+ - [x] Add `ServerClipServiceTest` class
+ - [x] Add `ServerClipController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody ServerClip serverClip)`
+	 - [x] `@PutMapping` `ResponseEntity<Object> update(@RequestBody ServerClip serverClip)`
+	 - [x] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
+### ~~Implement Playlist  (Estimate: 2 hours | Actual:  3 hours)~~
 - [x] Add `PlaylistJdbcTemplateRepository` class
 	- [x] `List<Playlist> findByUserId(int userId)`
 	- [x] `Playlist findById(int playlistId)`
@@ -186,7 +175,7 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody Playlist playlist)`
 	 - [x] `@PutMapping("/{playlistId}")` `ResponseEntity<Object> update(@PathVariable int playlistId, @RequestBody Playlist playlist)`
 	 - [x] `@DeleteMapping("/{playlistId}")` `ResponseEntity<Void> deleteById(@PathVariable int playlistId)`
-### ~~Implement PlaylistClip  (Estimate: 2 hours | Actual:  hours)~~
+### ~~Implement PlaylistClip  (Estimate: 2 hours | Actual:  1 hours)~~
 - [x] Add `PlaylistClipJdbcTemplateRepository` class
 	- [x] `PlaylistClip add(PlaylistClip playlistClip)`
 	- [x] `boolean update(PlaylistClip playlistClip)`
@@ -202,6 +191,17 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody PlaylistClip playlistClip)`
 	 - [x] `@PutMapping` `ResponseEntity<Object> update(@RequestBody PlaylistClip playlistClip)`
 	 - [x] `@DeleteMapping("/{playlistId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int playlistId, @PathVariable int clipId)`
+### Discord Authentication  (Estimate: 4 hours | Actual:  8+ hours)
+- [ ] Create Spring Boot application
+	- [ ] Configure to support Discord as a OAuth2 provider
+	- [ ] Add `SecurityConfig` class
+		- [ ] Update with new permissions after each feature implementation
+	- [ ] Add `AuthController` class
+		- [ ] Block a request if requests have an invalid access token
+- [ ] Create Discord application
+	- [ ] Generate OAuth2 Link with permissions and redirect
+	- [ ] Create Route to OAuth2 Link
+	- [ ] Any requests made will need the access token
 ### UI Services  (Estimate: 4 hours | Actual:  hours)
 - [ ] Add `discordUser.js`
 - [ ] Add `discordServer.js`
