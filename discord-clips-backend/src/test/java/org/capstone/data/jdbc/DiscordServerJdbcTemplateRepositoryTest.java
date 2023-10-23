@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.capstone.DataHelper.makeWindTaServer;
+import static org.capstone.DataHelper.makeWindTaServerWithClips;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -28,10 +29,12 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
     @Test
     void findById() {
-        DiscordServer expected = makeWindTaServer();
+        DiscordServer expected = makeWindTaServerWithClips();
         DiscordServer actual = discordServerRepository.findById(expected.getDiscordServerId());
         assertEquals(expected.getDiscordServerId(), actual.getDiscordServerId());
         assertEquals(expected.getServername(), actual.getServername());
+        assertEquals(1, actual.getClips().size());
+        assertEquals(expected.getClips().get(0), actual.getClips().get(0));
 
         DiscordServer invalid = discordServerRepository.findById(234124235L);
         assertNull(invalid);
@@ -56,7 +59,7 @@ class DiscordServerJdbcTemplateRepositoryTest {
 
         // Double check server was updated
         DiscordServer actual = discordServerRepository.findById(discordServer.getDiscordServerId());
-        assertEquals(discordServer, actual);
+        assertEquals(discordServer.getServername(), actual.getServername());
 
         // Unhappy path
         discordServer.setDiscordServerId(-1);

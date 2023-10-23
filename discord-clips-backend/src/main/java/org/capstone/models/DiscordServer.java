@@ -1,16 +1,20 @@
 package org.capstone.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DiscordServer {
     private long discordServerId;
-    private String username;
+    private String servername;
+
+    private List<DiscordServerClip> clips = new ArrayList<>();
 
     public DiscordServer() {}
 
-    public DiscordServer(long discordServerId, String username) {
+    public DiscordServer(long discordServerId, String servername) {
         this.discordServerId = discordServerId;
-        this.username = username;
+        this.servername = servername;
     }
 
     public long getDiscordServerId() {
@@ -22,11 +26,19 @@ public class DiscordServer {
     }
 
     public String getServername() {
-        return username;
+        return servername;
     }
 
     public void setServername(String username) {
-        this.username = username;
+        this.servername = username;
+    }
+
+    public List<DiscordServerClip> getClips() {
+        return clips;
+    }
+
+    public void setClips(List<DiscordServerClip> clips) {
+        this.clips = clips;
     }
 
     @Override
@@ -34,11 +46,11 @@ public class DiscordServer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DiscordServer that = (DiscordServer) o;
-        return discordServerId == that.discordServerId && Objects.equals(username, that.username);
+        return discordServerId == that.discordServerId && Objects.equals(servername, that.servername) && Objects.equals(clips, that.clips);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(discordServerId, username);
+        return Objects.hash(discordServerId, servername, clips);
     }
 }

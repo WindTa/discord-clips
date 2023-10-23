@@ -132,7 +132,7 @@
 	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody DiscordServer discordServer)`
 	 - [x] `@PutMapping("/{discordServerId}")` `ResponseEntity<Object> update(@PathVariable int discordServerId, @RequestBody DiscordServer discordServer)`
 	 - [x] `@DeleteMapping("/{discordServerId}")` `ResponseEntity<Void> deleteById(@PathVariable int discordServerId)`
-### Implement YouTube Clip  (Estimate: 2 hours | Actual:  hours)
+### ~~Implement YouTube Clip  (Estimate: 2 hours | Actual:  hours)~~
 - [x] Add `ClipJdbcTemplateRepository` class
 	- [x] `List<Clip> findByUser(int userId)`
 	- [x] `List<Clip> findByServer(int serverId)`
@@ -148,10 +148,10 @@
 	- [x] `Result<Clip> update(Clip clip)`
 	- [x] `boolean deleteById(int clipId)`
  - [x] Add `ClipServiceTest` class
- - [ ] Add `ClipController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody Clip clip)`
-	 - [ ] `@PutMapping("/{clipId}")` `ResponseEntity<Object> update(@PathVariable int clipId, @RequestBody Clip clip)`
-	 - [ ] `@DeleteMapping("/{clipId}")` `ResponseEntity<Void> deleteById(@PathVariable int clipId)`
+ - [x] Add `ClipController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody Clip clip)`
+	 - [x] `@PutMapping("/{clipId}")` `ResponseEntity<Object> update(@PathVariable int clipId, @RequestBody Clip clip)`
+	 - [x] `@DeleteMapping("/{clipId}")` `ResponseEntity<Void> deleteById(@PathVariable int clipId)`
 ### Implement ServerClip  (Estimate: 2 hours | Actual:  hours)
 - [ ] Add `ServerClipJdbcTemplateRepository` class
 	- [ ] `ServerClip add(ServerClip serverClip)`
@@ -168,7 +168,7 @@
 	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody ServerClip serverClip)`
 	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody ServerClip serverClip)`
 	 - [ ] `@DeleteMapping("/{serverId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int serverId, @PathVariable int clipId)`
-### Implement Playlist  (Estimate: 2 hours | Actual:  hours)
+### ~~Implement Playlist  (Estimate: 2 hours | Actual:  hours)~~
 - [x] Add `PlaylistJdbcTemplateRepository` class
 	- [x] `List<Playlist> findByUserId(int userId)`
 	- [x] `Playlist findById(int playlistId)`
@@ -182,11 +182,11 @@
 	- [x] `Result<Playlist> update(Playlist playlist)`
 	- [x] `boolean deleteById(int playlistId)`
  - [x] Add `PlaylistServiceTest` class
- - [ ] Add `PlaylistController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody Playlist playlist)`
-	 - [ ] `@PutMapping("/{playlistId}")` `ResponseEntity<Object> update(@PathVariable int playlistId, @RequestBody Playlist playlist)`
-	 - [ ] `@DeleteMapping("/{playlistId}")` `ResponseEntity<Void> deleteById(@PathVariable int playlistId)`
-### Implement PlaylistClip  (Estimate: 2 hours | Actual:  hours)
+ - [x] Add `PlaylistController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody Playlist playlist)`
+	 - [x] `@PutMapping("/{playlistId}")` `ResponseEntity<Object> update(@PathVariable int playlistId, @RequestBody Playlist playlist)`
+	 - [x] `@DeleteMapping("/{playlistId}")` `ResponseEntity<Void> deleteById(@PathVariable int playlistId)`
+### ~~Implement PlaylistClip  (Estimate: 2 hours | Actual:  hours)~~
 - [x] Add `PlaylistClipJdbcTemplateRepository` class
 	- [x] `PlaylistClip add(PlaylistClip playlistClip)`
 	- [x] `boolean update(PlaylistClip playlistClip)`
@@ -198,10 +198,10 @@
 	- [x] `Result<PlaylistClip> update(PlaylistClip playlistClip)`
 	- [x] `boolean deleteByKey(int playlistId, int clipId)`
  - [x] Add `PlaylistClipServiceTest` class
- - [ ] Add `PlaylistClipController` class
-	 - [ ] `@PostMapping ResponseEntity<Object> add(@RequestBody PlaylistClip playlistClip)`
-	 - [ ] `@PutMapping` `ResponseEntity<Object> update(@RequestBody PlaylistClip playlistClip)`
-	 - [ ] `@DeleteMapping("/{playlistId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int playlistId, @PathVariable int clipId)`
+ - [x] Add `PlaylistClipController` class
+	 - [x] `@PostMapping ResponseEntity<Object> add(@RequestBody PlaylistClip playlistClip)`
+	 - [x] `@PutMapping` `ResponseEntity<Object> update(@RequestBody PlaylistClip playlistClip)`
+	 - [x] `@DeleteMapping("/{playlistId}/{clipId}")` `ResponseEntity<Void> deleteByKey(@PathVariable int playlistId, @PathVariable int clipId)`
 ### UI Services  (Estimate: 4 hours | Actual:  hours)
 - [ ] Add `discordUser.js`
 - [ ] Add `discordServer.js`
