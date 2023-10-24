@@ -3,9 +3,14 @@ import Container from 'react-bootstrap/Container';
 import { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+
 import AuthContext from '../contexts/AuthProvider';
 
-import DiscordIcon from './DiscordIcon';
+import MenuIcon from './icons/MenuIcon';
+import SearchForm from './SearchForm';
+import DiscordClipIcon from './icons/DiscordClipIcon';
+import DiscordIcon from './icons/DiscordIcon';
+import AvatarIcon from './icons/AvatarIcon';
 
 function NavBar() {
     const { auth, setAuth } = useContext(AuthContext);
@@ -15,28 +20,25 @@ function NavBar() {
 
     const loggedOut = Object.keys(auth).length === 0;
 
+    console.log(auth);
 	return (
 		<Navbar expand='lg'>
 			<Container fluid>
-				<LinkContainer to='/menu'>
+				<LinkContainer to='/'>
 					<Navbar.Brand>
-                        <svg height="24" viewBox="0 0 24 24" width="24" focusable="false" style={{ fill: 'white', pointerEvents: 'none', display: 'block', width: '100%', height: '100%' }}><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path></svg>
+                        <DiscordClipIcon />
+                        DisClip
                     </Navbar.Brand>
 				</LinkContainer>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
-					<Nav className='me-auto'>
-						<LinkContainer to='/' end='true'>
-							<Nav.Link>Discord-Clips</Nav.Link>
-						</LinkContainer>
-					</Nav>
-					<Nav className='ml-auto'>
+                    <SearchForm />
+					<Nav className>
                         <Nav.Link
-                            // href={url}
                             href={loggedOut ? oauth : home}
-                            className="flex items-center rounded-lg bg-[#5865F2] text-white">
-                            <DiscordIcon />
-                            <span>Sign {loggedOut ? "in with" : "out of"} Discord</span>
+                            className="flex items-center rounded-lg bg-[#5865F2] text-white fs-5">
+                            {loggedOut ? <DiscordIcon /> : <AvatarIcon userId={auth.user.id} avatarId={auth.user.avatar} /> }
+                            {loggedOut ? "Sign In" : "Sign Out"}
                         </Nav.Link>
 					</Nav>
 				</Navbar.Collapse>

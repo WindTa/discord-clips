@@ -211,10 +211,10 @@
 - [ ] Add `playlist.js`
 - [ ] Add `playlistClip.js`
 ### NavBar component  (Estimate: 1 hours | Actual:  hours)
-- [ ] Menu toggle button
-- [ ] Home Link
+- [x] Menu toggle button
+- [x] Home Link
 - [ ] Search component + search button
-- [ ] Sign In / Sign Out
+- [x] Sign In / Sign Out
 ### Menu component  (Estimate: 1 hours | Actual:  hours)
 - [ ] Home Link
 - [ ] Library Link

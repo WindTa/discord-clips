@@ -2,14 +2,14 @@ import './App.css';
 
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
-import AuthContext from './contexts/AuthProvider';
+
+import Container from 'react-bootstrap/Container';
 
 import Home from './pages/Home';
 import NavBar from './components/NavBar';
+import AuthContext from './contexts/AuthProvider';
 
 import { getToken, getUser, getPermissions } from './services/discord';
-
-
 
 function App() {
     const { auth, setAuth } = useContext(AuthContext);
@@ -38,10 +38,12 @@ function App() {
             <header className='my-1'>
                 <NavBar/>
             </header>
-            <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="/menu" element={<div>Menu</div>}/>
-            </Routes>
+            <Container fluid>
+                <Routes>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/menu" element={<div>Menu</div>}/>
+                </Routes>
+            </Container>
         </main>
     );
 
