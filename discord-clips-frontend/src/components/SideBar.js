@@ -15,12 +15,14 @@ function SideBar({collapsed}) {
     };
 
     const setActive = (menuItem) => {
-        console.log(menuItem);
         setActiveMenuItem(menuItem)
     }
 
     return (
-        <Sidebar collapsed={collapsed} backgroundColor="#212529">
+        <Sidebar 
+            collapsed={collapsed} 
+            backgroundColor="#212529"
+        >
             <Menu
                 menuItemStyles={{
                     root: {
@@ -61,7 +63,7 @@ function SideBar({collapsed}) {
                     icon={<i className="bi bi-collection-play"></i>}
                     component={<Link to="/library" />}
                 >Library</MenuItem>
-                <SubMenuCustom 
+                <SubMenuCustom
                     label='Playlists' 
                     path='playlist' 
                     getList={getPlaylistsByUser} 

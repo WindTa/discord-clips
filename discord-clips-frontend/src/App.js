@@ -44,11 +44,11 @@ function App() {
     }
 
     return (
-        <main style={{ height: '100vh' }}>
+        <main style={{ height: 'calc(100vh - 72.5px)' }}>
             <NavBar handleCollapse={handleCollapse}/>
-            <div style={{ display: 'flex', height: '100%'}}>
+            <div style={{ display: 'flex', height: '100%', overflowY: 'hidden'}}>
                 <SideBar collapsed={collapsed}/>
-                <Container fluid>
+                <Container fluid style={{ overflowY: 'auto' }}>
                     <Routes>
                         <Route path="/" element={<Home />}/>
                         <Route path="/library" element={<Library />}/>

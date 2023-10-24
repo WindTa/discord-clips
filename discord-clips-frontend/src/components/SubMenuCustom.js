@@ -15,7 +15,9 @@ function SubMenuCustom({label, path, getList, isActive, setActive}) {
     return (
         <SubMenu 
             label={label} 
-            defaultOpen icon={icon}>
+            defaultOpen={label === "Servers"}
+            icon={icon}
+        >
             {list.map((item, idx) => {
                 return (
                     <MenuItem 
