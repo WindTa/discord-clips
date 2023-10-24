@@ -6,7 +6,11 @@ import { useEffect, useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 
 import Home from './pages/Home';
+import Library from './pages/Library';
+import Playlist from './pages/Playlist';
+import Server from './pages/Server';
 import NavBar from './components/NavBar';
+import SideBar from './components/SideBar';
 import AuthContext from './contexts/AuthProvider';
 
 import { getToken, getUser, getPermissions } from './services/discord';
@@ -23,9 +27,10 @@ function App() {
     const updateAuth = async (code) => {
         const token = await getToken(code);
 
+        if (!token) return;
         Promise.all([getUser(token), getPermissions(token)])
             .then((results) => {
-                setAuth( {token: token, user: results[0], permissions: results[1]} );
+                setAuth( {token: token, user: results[0], servers: results[1]} );
             })
             .catch((error) => {
                 console.error(error);
@@ -33,17 +38,25 @@ function App() {
         return {};
     }
 
+    const [collapsed, setCollapsed] = useState(false);
+    const handleCollapse = () => {
+        setCollapsed(!collapsed);
+    }
+
     return (
-        <main>
-            <header className='my-1'>
-                <NavBar/>
-            </header>
-            <Container fluid>
-                <Routes>
-                    <Route path="/" element={<Home />}/>
-                    <Route path="/menu" element={<div>Menu</div>}/>
-                </Routes>
-            </Container>
+        <main style={{ height: '100vh' }}>
+            <NavBar handleCollapse={handleCollapse}/>
+            <div style={{ display: 'flex', height: '100%'}}>
+                <SideBar collapsed={collapsed}/>
+                <Container fluid>
+                    <Routes>
+                        <Route path="/" element={<Home />}/>
+                        <Route path="/library" element={<Library />}/>
+                        <Route path="/playlist" element={<Playlist />}/>
+                        <Route path="/server" element={<Server />}/>
+                    </Routes>
+                </Container>
+            </div>
         </main>
     );
 
@@ -51,3 +64,4 @@ function App() {
 }
 
 export default App;
+

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 function SearchForm() {
 
     return (
-        <Form inline className='m-auto w-75'>
+        <Form className='m-auto w-75'>
             <InputGroup className="input-group-lg">
                 <Form.Control
                 placeholder="Enter YouTube URL"
