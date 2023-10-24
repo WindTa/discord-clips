@@ -4,9 +4,10 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import DiscordIcon from '../DiscordIcon';
 
-function NavBar({user}) {
-    const url = "http://localhost:4000/auth/discord/login";
-    const url2 = "http://localhost:4000/auth/discord/logout";
+function NavBar() {
+    const user = null;
+    const oauth = "https://discord.com/api/oauth2/authorize?client_id=1163916171846877325&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify%20guilds"
+    const home = "/";
 
 	return (
 		<Navbar expand='lg'>
@@ -25,7 +26,8 @@ function NavBar({user}) {
 					</Nav>
 					<Nav className='ml-auto'>
                         <Nav.Link
-                            href={!user ? url : url2}
+                            // href={url}
+                            href={!user ? oauth : home}
                             className="flex items-center rounded-lg bg-[#5865F2] text-white">
                             <DiscordIcon />
                             <span>Sign {!user ? "in with " : "out of "} Discord</span>

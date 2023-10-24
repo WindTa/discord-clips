@@ -1,40 +1,37 @@
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import AuthContext from './contexts/AuthProvider';
 
 import Home from './pages/Home';
 import NavBar from './components/NavBar/NavBar';
 
+import { getToken, getUser, getPermissions } from './services/discord';
+
 function App() {
-    const [user, setUser] = useState(null);
-
-    async function getMe() {
-        const response = await axios.get('http://localhost:4000/user/me', {
-            withCredentials: true
-        });
-
-        setUser(response.data);
-    }
+    const { auth, setAuth } = useContext(AuthContext);
 
     useEffect(() => {
-        getMe();
+        const code = new URLSearchParams(window.location.search).get('code');
+        if (!code) return;
+
+        const token = getToken(code);
+        setAuth({ token: token });
     }, []);
 
+    console.log(auth);
     return (
-        <Router>
+        <main>
             <header className='my-1'>
-                <NavBar user={user}/>
+                <NavBar/>
             </header>
-            {user && <div>User is logged in</div>}
-            <main className='container'>
-                <Routes>
-                    <Route path="/" element={<Home />}/>
-                    <Route path="/menu" element={<div>Menu</div>}/>
-                </Routes>
-            </main>
-        </Router>
+            <div></div>
+            <Routes>
+                <Route path="/" element={<Home />}/>
+                <Route path="/menu" element={<div>Menu</div>}/>
+            </Routes>
+        </main>
     );
 }
 
