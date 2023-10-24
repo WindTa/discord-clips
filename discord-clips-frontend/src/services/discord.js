@@ -31,28 +31,24 @@ export async function getUser(token) {
     const USER_URL = "/users/@me";
     const response = await axios.get(`${BASE_URL}${USER_URL}`, {
         headers: {
-            Authorization: `Bearer ${await token}`,
+            Authorization: `Bearer ${token}`,
             ...headers
         }
-    }).catch((error) => {
-            console.error(error);
     });
 
-    return { id: response.data?.id, username: response.data?.username };
+    return { id: response.data?.id, username: response.data?.username, avatar: response.data?.avatar };
 }
 
 export async function getPermissions(token) {
     const USER_GUILDS_URL = "/users/@me/guilds";
     const response = await axios.get(`${BASE_URL}${USER_GUILDS_URL}`, {
         headers: {
-            Authorization: `Bearer ${await token}`,
+            Authorization: `Bearer ${token}`,
             ...headers
         }
-    }).catch((error) => {
-            console.error(error);
     });
 
     return response?.data?.map((guild) => {
-        return { id: guild.id, name: guild.name, owner: guild.owner};
+        return { id: guild.id, name: guild.name, owner: guild.owner, icon: guild.icon};
     });
 }

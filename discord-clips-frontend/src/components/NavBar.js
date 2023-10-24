@@ -1,13 +1,19 @@
 import Container from 'react-bootstrap/Container';
+
+import { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import AuthContext from '../contexts/AuthProvider';
 
-import DiscordIcon from '../DiscordIcon';
+import DiscordIcon from './DiscordIcon';
 
 function NavBar() {
-    const user = null;
+    const { auth, setAuth } = useContext(AuthContext);
+
     const oauth = "https://discord.com/api/oauth2/authorize?client_id=1163916171846877325&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify%20guilds"
     const home = "/";
+
+    const loggedOut = Object.keys(auth).length === 0;
 
 	return (
 		<Navbar expand='lg'>
@@ -27,10 +33,10 @@ function NavBar() {
 					<Nav className='ml-auto'>
                         <Nav.Link
                             // href={url}
-                            href={!user ? oauth : home}
+                            href={loggedOut ? oauth : home}
                             className="flex items-center rounded-lg bg-[#5865F2] text-white">
                             <DiscordIcon />
-                            <span>Sign {!user ? "in with " : "out of "} Discord</span>
+                            <span>Sign {loggedOut ? "in with" : "out of"} Discord</span>
                         </Nav.Link>
 					</Nav>
 				</Navbar.Collapse>
