@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Library from './pages/Library';
 import Playlist from './pages/Playlist';
 import Server from './pages/Server';
+import Clip from './pages/Clip';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import AuthContext from './contexts/AuthProvider';
@@ -52,8 +53,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />}/>
                         <Route path="/library" element={<Library />}/>
-                        <Route path="/playlist" element={<Playlist />}/>
-                        <Route path="/server" element={<Server />}/>
+                        <Route path="/playlists/:playlistId" element={<Playlist />}/>
+                        <Route path="/servers/:serverId" element={<Server />}/>
+                        <Route path="/clips/:clip" element={<Clip />}/>
                     </Routes>
                 </Container>
             </div>

@@ -210,12 +210,12 @@
 - [ ] Add `userDefaultClip.js`
 - [ ] Add `playlist.js`
 - [ ] Add `playlistClip.js`
-### ~~NavBar component  (Estimate: 1 hours | Actual:  hours)~~
+### ~~NavBar component  (Estimate: 1 hours | Actual:  2 hours)~~
 - [x] Menu toggle button
 - [x] Home Link
 - [x] Search component + search button
 - [x] Sign In / Sign Out
-### ~~Menu component  (Estimate: 1 hours | Actual:  hours)~~
+### ~~Menu component  (Estimate: 1 hours | Actual: 4 hours)~~
 - [x] Home Link
 - [x] Library Link
 - [x] Playlist Option
@@ -243,7 +243,7 @@
 - [ ] How to get started?
 - [ ] Add to your server!
 - [ ] Save a clip!
-### ~~Library page  (Estimate: 2 hours | Actual:  hours)~~
+### ~~Library page  (Estimate: 2 hours | Actual:  4 hours)~~
 - [x] Clips carousel
 - [x] Playlist carousel
 - [x] Server carousel
@@ -253,9 +253,9 @@
 - [ ] Playlist Search component
 - [ ] Delete Playlist button
 ### Playlist page  (Estimate: 1 hours | Actual:  hours)
-- [ ] PlaylistHeader component
+- [x] PlaylistHeader component
 - [ ] Add to Playlist button
-- [ ] ClipList component
+- [x] ClipList component
 ### SaveClip page  (Estimate: 2 hours | Actual:  hours)
 - [ ] YouTube embed
 - [ ] Media control
