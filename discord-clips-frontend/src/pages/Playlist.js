@@ -1,14 +1,10 @@
-import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
 
 import ClipDeck from '../components/decks/ClipDeck.js';
-import AuthContext from '../contexts/AuthProvider.js';
 
 function Playlist() {
-    const { auth } = useContext(AuthContext);
-
     const { playlistId } = useParams();
 
     return (

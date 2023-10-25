@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import AuthContext from '../../contexts/AuthProvider';
 
 import Row from 'react-bootstrap/Row';
 
@@ -7,8 +8,11 @@ import ClipCard from './ClipCard';
 
 import { getClipsByUser } from '../../services/clip';
 import { getPlaylistById } from '../../services/playlist';
+import { getServerById } from '../../services/server';
 
 function ClipDeck({userId, playlistId, serverId}) {
+    const { auth } = useContext(AuthContext);
+
     const [clips, setClips] = useState([]);
     const [playlist, setPlaylist] = useState(null);
     const [server, setServer] = useState(null);
@@ -20,7 +24,7 @@ function ClipDeck({userId, playlistId, serverId}) {
                 .then(setClips)
                 .catch(error => {
                     console.error(error);
-                    navigate('/error', { state: { error } });
+                    setClips([]);
                 });
         }
 
@@ -32,14 +36,33 @@ function ClipDeck({userId, playlistId, serverId}) {
                 })
                 .catch(error => {
                     console.error(error);
-                    navigate('/error', { state: { error } });
+                    setPlaylist(null);
+                    setClips([]);
                 });
         }
+
+        if (serverId) {
+            getServerById(serverId)
+                .then(response => {
+                    // This is only temporary until I fix the BigDecimal issue
+                    console.log(response);
+                    setServer({serverId: response.serverId, serverName: response.servername});
+                    setClips(response.clips
+                        .map(c => c.clip)
+                        .filter(c => c.discordUserId === Math.round(auth.user.id)));
+                })
+                .catch(error => {
+                    console.error(error);
+                    setServer(null);
+                    setClips([]);
+                });
+        }
+
     }, [userId, playlistId, serverId]);
 
     return (
         <div>
-            {userId && <h1>Clips</h1>}
+            {(userId && !serverId) && <h1>Clips</h1>}
             <h1>{playlist?.playlistName}</h1>
             <h1>{server?.serverName}</h1>
 
