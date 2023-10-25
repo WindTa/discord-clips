@@ -9,14 +9,14 @@ import AuthContext from '../../contexts/AuthProvider';
 
 function PlaylistSubMenu({isActive, setActive}) {
     const { auth } = useContext(AuthContext);
-	const [list, setList] = useState([]);
+	const [playlists, setPlaylists] = useState([]);
     const navigate = useNavigate();
 
     const icon = <i className="bi bi-music-note-list"></i>
 
     useEffect(() => {
         getPlaylistsByUser(auth.user.id)
-            .then(setList)
+            .then(setPlaylists)
             .catch(error => {
                 console.error(error);
                 navigate('/error', { state: { error } });
@@ -28,15 +28,15 @@ function PlaylistSubMenu({isActive, setActive}) {
             label={"Playlists"}
             icon={icon}
         >
-            {list.map((item, idx) => {
+            {playlists.map((playlist, idx) => {
                 return (
                     <MenuItem 
                         active={isActive(`playlist-${idx}`)}
                         onClick={() => setActive(`playlist-${idx}`)}
                         key={idx} icon={icon}
-                        component={ <Link to={`/playlist`} /> }
+                        component={ <Link to={`/playlists/${playlist.playlistId}`} /> }
                     >
-                        {item.playlistName}
+                        {playlist.playlistName}
                     </MenuItem>
                 );
             })}

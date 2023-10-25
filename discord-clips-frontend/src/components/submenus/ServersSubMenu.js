@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import { MenuItem, SubMenu } from 'react-pro-sidebar';
 
-import { getServersByUser } from '../../services/server';
+import AuthContext from '../../contexts/AuthProvider';
 
 function ServersSubMenu({isActive, setActive}) {
-	const [list, setList] = useState([]);
+    const { auth } = useContext(AuthContext);
+	const [servers, setServers] = useState([]);
 
     const icon = <i className="bi bi-discord"></i>;
 
     useEffect(() => {
-        setList(getServersByUser);
+        setServers(auth.servers);
     }, []);
 
     return (
@@ -20,15 +21,15 @@ function ServersSubMenu({isActive, setActive}) {
             defaultOpen
             icon={icon}
         >
-            {list.map((item, idx) => {
+            {servers.map((server, idx) => {
                 return (
                     <MenuItem 
                         active={isActive(`server-${idx}`)}
                         onClick={() => setActive(`server-${idx}`)}
                         key={idx} icon={icon}
-                        component={ <Link to={`/server`} /> }
+                        component={ <Link to={`/servers/${server.id}`} /> }
                     >
-                        {item}
+                        {server.name}
                     </MenuItem>
                 );
             })}

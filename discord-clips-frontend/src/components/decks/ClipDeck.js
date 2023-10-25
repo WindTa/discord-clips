@@ -1,34 +1,37 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
+import ClipCard from './ClipCard';
 
 import { getClipsByUser } from '../../services/clip';
 
-function ClipDeck() {
+function ClipDeck({userId, playlistId, serverId}) {
     const [clips, setClips] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setClips(getClipsByUser);
+        if (userId) {
+            getClipsByUser(userId)
+                .then(setClips)
+                .catch(error => {
+                    console.error(error);
+                    navigate('/error', { state: { error } });
+                });
+        }
     }, []);
 
     return (
-        <Row xl={6} className='g-4'>
-            {clips.map((_, idx) => (
-                <Col key={idx}>
-                    <Card>
-                        <Card.Img variant="top" src="../icons/DiscordClipIcon.js" />
-                        <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
-                            <Card.Text>
-                                This content is a little bit longer.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            ))}
-        </Row>
+        <div>
+            <h1>Clips</h1>
+
+            <Row xl={6} className='g-4'>
+                {clips?.map((clip, idx) => (
+                    <ClipCard clip={clip} key={idx}/>
+                ))}
+            </Row>
+        </div>
     );
 }
 

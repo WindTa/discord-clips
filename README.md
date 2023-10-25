@@ -210,18 +210,18 @@
 - [ ] Add `userDefaultClip.js`
 - [ ] Add `playlist.js`
 - [ ] Add `playlistClip.js`
-### NavBar component  (Estimate: 1 hours | Actual:  hours)
+### ~~NavBar component  (Estimate: 1 hours | Actual:  hours)~~
 - [x] Menu toggle button
 - [x] Home Link
-- [ ] Search component + search button
+- [x] Search component + search button
 - [x] Sign In / Sign Out
-### Menu component  (Estimate: 1 hours | Actual:  hours)
-- [ ] Home Link
-- [ ] Library Link
-- [ ] Playlist Option
-- [ ] Server Option
-- [ ] Logged In/Logged Out View
-- [ ] Hidden (partial/full)
+### ~~Menu component  (Estimate: 1 hours | Actual:  hours)~~
+- [x] Home Link
+- [x] Library Link
+- [x] Playlist Option
+- [x] Server Option
+- [x] Logged In/Logged Out View
+- [x] Hidden (partial/full)
 ### ClipInfo component  (Estimate: 0.5 hours | Actual:  hours)
 - [ ] Video Title
 - [ ] Video | Release Date
@@ -243,10 +243,10 @@
 - [ ] How to get started?
 - [ ] Add to your server!
 - [ ] Save a clip!
-### Library page  (Estimate: 2 hours | Actual:  hours)
-- [ ] Clips carousel
-- [ ] Playlist carousel
-- [ ] Server carousel
+### ~~Library page  (Estimate: 2 hours | Actual:  hours)~~
+- [x] Clips carousel
+- [x] Playlist carousel
+- [x] Server carousel
 ### PlaylistHeader component  (Estimate: 0.5 hours | Actual:  hours)
 - [ ] Playlist Name
 - [ ] Playlist Name Editor
