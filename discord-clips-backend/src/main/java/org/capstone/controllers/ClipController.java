@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins={"http://localhost:3000"})
 @RequestMapping("/api/clips")
 public class ClipController {
     private final ClipService clipService;

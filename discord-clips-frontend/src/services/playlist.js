@@ -1,24 +1,17 @@
-export function getPlaylistsByUser(userId) {
-    return ["Playlist 1", 
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 3",
-        "Playlist 2", 
-        "Playlist 3",
-    ];
+import { BASE_URL } from './disClipBaseUrl';
+
+import AuthContext from '../contexts/AuthProvider';
+
+const endpointUrl = BASE_URL + '/playlists';
+
+export async function getPlaylistsByUser(userId) {
+    const url = `${endpointUrl}/discord-user/${userId}`;
+    const response = await fetch(url);
+    if (response.ok) {
+        return response.json();
+    } else {
+		return Promise.reject(
+			new Error(`Unexpected status code ${response.status}.`)
+		);
+	}
 }

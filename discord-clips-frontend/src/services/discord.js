@@ -39,7 +39,7 @@ export async function getUser(token) {
     return { id: response.data?.id, username: response.data?.username, avatar: response.data?.avatar };
 }
 
-export async function getPermissions(token) {
+export async function getServers(token) {
     const USER_GUILDS_URL = "/users/@me/guilds";
     const response = await axios.get(`${BASE_URL}${USER_GUILDS_URL}`, {
         headers: {

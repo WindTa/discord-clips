@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 
-import SubMenuCustom from './SubMenuCustom';
+import PlaylistSubMenu from './submenus/PlaylistsSubMenu';
+import ServersSubMenu from './submenus/ServersSubMenu';
 
-import { getPlaylistsByUser } from '../services/playlist'
-import { getServersByUser } from '../services/server'
+import AuthContext from '../contexts/AuthProvider';
 
 function SideBar({collapsed}) {
+    const { auth } = useContext(AuthContext);
+
     const [activeMenuItem, setActiveMenuItem] = useState('Home');
 
     const isActive = (menuItem) => {
@@ -57,26 +59,26 @@ function SideBar({collapsed}) {
                     Home
                 </MenuItem>
 
-                <MenuItem 
-                    active={isActive('Library')}
-                    onClick={() => setActive('Library')}
-                    icon={<i className="bi bi-collection-play"></i>}
-                    component={<Link to="/library" />}
-                >Library</MenuItem>
-                <SubMenuCustom
-                    label='Playlists' 
-                    path='playlist' 
-                    getList={getPlaylistsByUser} 
-                    isActive={isActive}
-                    setActive={setActive}
-                    />
-                <SubMenuCustom 
-                    label='Servers' 
-                    path='server'
-                    getList={getServersByUser} 
-                    isActive={isActive}
-                    setActive={setActive}
-                    />
+                { Object.keys(auth).length !== 0
+                    && (
+                        <>
+                            <MenuItem 
+                                active={isActive('Library')}
+                                onClick={() => setActive('Library')}
+                                icon={<i className="bi bi-collection-play"></i>}
+                                component={<Link to="/library" />}
+                            >Library</MenuItem>
+                            <PlaylistSubMenu
+                                isActive={isActive}
+                                setActive={setActive}
+                                />
+                            <ServersSubMenu
+                                isActive={isActive}
+                                setActive={setActive}
+                                />
+                        </>
+                    )
+                }
             </Menu>
         </Sidebar>
     );

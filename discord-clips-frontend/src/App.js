@@ -13,7 +13,7 @@ import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import AuthContext from './contexts/AuthProvider';
 
-import { getToken, getUser, getPermissions } from './services/discord';
+import { getToken, getUser, getServers } from './services/discord';
 
 function App() {
     const { auth, setAuth } = useContext(AuthContext);
@@ -28,7 +28,7 @@ function App() {
         const token = await getToken(code);
 
         if (!token) return;
-        Promise.all([getUser(token), getPermissions(token)])
+        Promise.all([getUser(token), getServers(token)])
             .then((results) => {
                 setAuth( {token: token, user: results[0], servers: results[1]} );
             })
@@ -48,7 +48,7 @@ function App() {
             <NavBar handleCollapse={handleCollapse}/>
             <div style={{ display: 'flex', height: '100%', overflowY: 'hidden'}}>
                 <SideBar collapsed={collapsed}/>
-                <Container fluid style={{ overflowY: 'auto' }}>
+                <Container fluid className='p-5' style={{ overflowY: 'auto' }}>
                     <Routes>
                         <Route path="/" element={<Home />}/>
                         <Route path="/library" element={<Library />}/>
@@ -59,7 +59,6 @@ function App() {
             </div>
         </main>
     );
-
 
 }
 
