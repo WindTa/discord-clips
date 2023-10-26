@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../../contexts/AuthProvider';
 
@@ -16,7 +15,6 @@ function ClipDeck({userId, playlistId, serverId}) {
     const [clips, setClips] = useState([]);
     const [playlist, setPlaylist] = useState(null);
     const [server, setServer] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (userId) {

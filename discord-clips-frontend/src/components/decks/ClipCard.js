@@ -9,7 +9,7 @@ function ClipCard({clip}) {
     const thumbnail = (youtubeId) => `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
 
     return (
-        <Link to={`/clips/${clip.clipId}`}>
+        <Link to={`/clips/edit/${clip.clipId}`}>
             <Col>
                 <Card>
                     <Card.Img variant="top" src={thumbnail(clip.youtubeId)} />

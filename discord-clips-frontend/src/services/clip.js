@@ -13,3 +13,15 @@ export async function getClipsByUser(userId) {
 		);
 	}
 }
+
+export async function getClipById(clipId) {
+    const url = `${endpointUrl}/${clipId}`;
+    const response = await fetch(url);
+    if (response.ok) {
+        return response.json();
+    } else {
+		return Promise.reject(
+			new Error(`Unexpected status code ${response.status}.`)
+		);
+	}
+}
