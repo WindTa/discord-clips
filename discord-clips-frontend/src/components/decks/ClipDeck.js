@@ -15,9 +15,10 @@ function ClipDeck({userId, playlistId, serverId}) {
     const [clips, setClips] = useState([]);
     const [playlist, setPlaylist] = useState(null);
     const [server, setServer] = useState(null);
+    const [serverClips, setServerClips] = useState([]);
 
     useEffect(() => {
-        if (userId) {
+        if (userId && !serverId) {
             getClipsByUser(userId)
                 .then(setClips)
                 .catch(error => {
@@ -40,12 +41,18 @@ function ClipDeck({userId, playlistId, serverId}) {
         }
 
         if (serverId) {
+            getClipsByUser(auth.user.id)
+                .then(setClips)
+                .catch(error => {
+                    console.error(error);
+                    setClips([]);
+                });
+
             getServerById(serverId)
                 .then(response => {
                     // This is only temporary until I fix the BigDecimal issue
-                    console.log(response);
                     setServer({serverId: response.serverId, serverName: response.servername});
-                    setClips(response.clips
+                    setServerClips(response.clips
                         .map(c => c.clip)
                         .filter(c => c.discordUserId === Math.round(auth.user.id)));
                 })
@@ -53,6 +60,7 @@ function ClipDeck({userId, playlistId, serverId}) {
                     console.error(error);
                     setServer(null);
                     setClips([]);
+                    setServerClips([]);
                 });
         }
 
@@ -65,9 +73,14 @@ function ClipDeck({userId, playlistId, serverId}) {
             <h1>{server?.serverName}</h1>
 
             <Row xl={6} className='g-4'>
-                {clips?.map((clip, idx) => (
-                    <ClipCard clip={clip} key={idx}/>
-                ))}
+                {clips?.map((clip, idx) => {
+                    if (serverId) {
+                        const disabled = !serverClips.map(serverClip => serverClip.clipId).includes(clip.clipId);
+                        return (<ClipCard clip={clip} key={idx} disabled={disabled} serverId={serverId}/>)
+                    } else {
+                        return (<ClipCard clip={clip} key={idx} serverId={serverId}/>)
+                    }
+                })}
             </Row>
         </div>
     );

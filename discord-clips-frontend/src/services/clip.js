@@ -53,6 +53,39 @@ export async function addNewClip(clip) {
 	}
 }
 
+export async function updateOldClip(clip) {
+    const url = `${endpointUrl}/${clip.clipId}`;
+
+	const init = {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(clip, (key, value) => {
+            if (typeof value === 'number') {
+                return Number(value.toFixed(2));
+            }
+            return value;
+        })
+	};
+
+	const response = await fetch(url, init);
+	if (response.ok) {
+		return null;
+	} else if (response.status === 400) {
+		const errs = await response.json();
+		return errs;
+	} else if (response.status === 404) {
+		return Promise.reject(
+			new Error(`The requested resource could not be found.`)
+		);
+	} else {
+		return Promise.reject(
+			new Error(`Unexpected status code ${response.status}.`)
+		);
+	}
+}
+
 export async function deleteClipById(clipId) {
     const init = {
         method: 'DELETE',

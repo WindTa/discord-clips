@@ -70,6 +70,7 @@ function ClipEmbed({clip}) {
                     className='h-100 w-100' 
                     controls="true"
                     playing={playing}
+                    playbackRate={playbackRate}
                     url={`https://www.youtube.com/watch?v=${clip?.youtubeId}`} 
                     onDuration={handleVideoLength}
                     onPlaybackRateChange={handlePlaybackRate}

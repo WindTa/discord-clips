@@ -42,3 +42,27 @@ export async function getPlaylistById(playlistId) {
 		);
 	}
 }
+
+export async function savePlaylist(playlist) {
+    const url = `${endpointUrl}/${playlist.playlistId}`;
+    
+    const init = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(playlist),
+    };
+
+    const response = await fetch(endpointUrl, init);
+    if (response.ok) {
+        return response.json();
+    } else if (response.status === 400) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return Promise.reject(
+            new Error(`Unexpected status code ${response.status}.`)
+        );
+    }
+}

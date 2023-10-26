@@ -96,3 +96,6 @@
     white-space: nowrap;
 }
 
+.disabled-card {
+    opacity: 0.25;
+}

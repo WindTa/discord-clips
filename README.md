@@ -223,21 +223,21 @@
 - [x] Logged In/Logged Out View
 - [x] Hidden (partial/full)
 ### ClipInfo component  (Estimate: 0.5 hours | Actual:  hours)
-- [ ] Video Title
-- [ ] Video | Release Date
-- [ ] Channel Picture | Channel Name
-- [ ] Description
+- [x] Video Title
+- [x] Video | Release Date
+- [x] Channel Picture | Channel Name
+- [x] Description
 ### ClipOptions component  (Estimate: 0.5 hours | Actual:  hours)
 - [ ] Default ..., togglable to 
 - [ ] Edit/Delete/Save to Playlist
 ### Clip component  (Estimate: 0.5 hours | Actual:  hours)
-- [ ] Thumbnail
-- [ ] ClipInfo component
-- [ ] Mini Player
-- [ ] ClipOptions component
-- [ ] = Swappable button
+- [x] Thumbnail
+- [x] ClipInfo component
+- [x] Mini Player
+- [x] ClipOptions component
+- [x] = Swappable button
 ### ClipList component  (Estimate: 0.5 hours | Actual:  hours)
-- [ ] Map Clips to Clip components
+- [x] Map Clips to Clip components
 ### Home/Guide page  (Estimate: 2 hours | Actual:  hours)
 - [ ] What does it do?
 - [ ] How to get started?
