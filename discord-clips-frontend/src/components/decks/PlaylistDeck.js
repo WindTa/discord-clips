@@ -14,7 +14,7 @@ function PlaylistDeck({userId}) {
     useEffect(() => {
         getPlaylistsWithThumbnail(userId)
             .then(response => {
-                Promise.all(response).then(setPlaylists);
+                if (response) Promise.all(response).then(setPlaylists);
             })
             .catch(error => {
                 console.error(error);

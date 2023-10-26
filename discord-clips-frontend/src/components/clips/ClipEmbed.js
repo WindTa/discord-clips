@@ -12,7 +12,7 @@ import DeleteClip from '../modals/DeleteClip';
 import { Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-function ClipEmbed({clip}) {
+function ClipEmbed({clip, setClip}) {
     const playerRef = useRef();
     const [playing, setPlaying] = useState(false);
     const [timer, setTimer] = useState(null);
@@ -98,7 +98,7 @@ function ClipEmbed({clip}) {
                     </Button>
                 </Col>
                 <Col>
-                    <SaveClip clip={clip} clipName={clipName} start={start} duration={duration} playbackRate={playbackRate}/>
+                    <SaveClip clip={clip} setClip={setClip} clipName={clipName} start={start} duration={duration} playbackRate={playbackRate}/>
                 </Col>
                 <Col>
                     <DeleteClip clipId={clip.clipId} />

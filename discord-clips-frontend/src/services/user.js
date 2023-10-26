@@ -1,9 +1,9 @@
 import { BASE_URL } from './disClipBaseUrl';
 
-const endpointUrl = BASE_URL + '/discord-servers';
+const endpointUrl = BASE_URL + '/discord-users';
 
-export async function getServerById(serverId) {
-    const url = `${endpointUrl}/${serverId}`;
+export async function getUserById(userId) {
+    const url = `${endpointUrl}/${userId}`
     const response = await fetch(url);
     if (response.ok) {
         return response.json();
@@ -14,13 +14,13 @@ export async function getServerById(serverId) {
 	}
 }
 
-export async function addServer(server) {
+export async function addUser(user) {
     const init = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(server),
+        body: JSON.stringify(user),
     };
 
     const response = await fetch(endpointUrl, init);
@@ -36,14 +36,14 @@ export async function addServer(server) {
     }
 }
 
-export async function updateServer(server) {
-    const url = `${endpointUrl}/${server.discordServerId}`;
+export async function updateUser(user) {
+    const url = `${endpointUrl}/${user.discordUserId}`;
     const init = {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(server),
+        body: JSON.stringify(user),
     };
 
     const response = await fetch(url, init);

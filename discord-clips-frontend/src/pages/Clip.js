@@ -33,7 +33,7 @@ function Clip() {
             {clip && (
                 <Row className='h-100'>
                     <Col md={10}>
-                        <ClipEmbed clip={clip} />
+                        <ClipEmbed clip={clip} setClip={setClip}/>
                     </Col>
                 </Row>
             )}

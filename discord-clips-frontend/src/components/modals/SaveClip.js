@@ -10,14 +10,15 @@ import Modal from "react-bootstrap/Modal";
 import { deleteClipPlaylistById, saveClipPlaylist } from '../../services/clipPlaylist';
 import { addNewClip, updateOldClip } from '../../services/clip';
 
-function SaveClip({clip, clipName, start, duration, playbackRate}) {
+function SaveClip({clip, setClip, clipName, start, duration, playbackRate}) {
     const { auth } = useContext(AuthContext);
-    const navigate = useNavigate();
     const { youtubeId } = useParams();
+    const navigate = useNavigate();
 
     const [show, setShow] = useState(false);
     const [playlists, setPlaylists] = useState([]);
     const [clipPlaylistsIds, setClipPlaylistsIds] = useState([]);
+    const [newClipId, setNewClipId] = useState(null);
     const [errors, setErrors] = useState([]);
 
     const [newPlaylist, setNewPlaylist] = useState('');
@@ -49,11 +50,12 @@ function SaveClip({clip, clipName, start, duration, playbackRate}) {
             playlists: []
         }
 
+
 		addNewClip(newClip)
 			.then(res => {
-				if (!res) {
-                    // and then show playlists to let them add to
-                    handleShow();
+				if (res.clipId) {
+                    setClip(res);
+                    navigate(`/library`);
 				} else {
 					if (res.error) {
 						setErrors([res.error]);
@@ -109,6 +111,7 @@ function SaveClip({clip, clipName, start, duration, playbackRate}) {
 
         saveClipPlaylist({...clipPlaylist})
             .then(res => {
+                console.log(clipPlaylistsIds);
                 setClipPlaylistsIds([...clipPlaylistsIds, playlist.playlistId]);
                 if (res.error) {
                     setErrors([res.error]);

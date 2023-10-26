@@ -42,7 +42,7 @@ export async function addNewClip(clip) {
 
 	const response = await fetch(endpointUrl, init);
 	if (response.ok) {
-		return null;
+		return response.json();
 	} else if (response.status === 400) {
 		const errs = await response.json();
 		return errs;

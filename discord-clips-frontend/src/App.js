@@ -15,6 +15,8 @@ import SideBar from './components/SideBar';
 import AuthContext from './contexts/AuthProvider';
 
 import { getToken, getUser, getServers } from './services/discord';
+import { getUserById, addUser, updateUser } from './services/user';
+import { addServer, getServerById, updateServer } from './services/server';
 
 function App() {
     const { auth, setAuth } = useContext(AuthContext);
@@ -37,6 +39,57 @@ function App() {
                 console.error(error);
             })
         return {};
+    }
+
+    // Update user, or create if they don't exist
+    if (auth.user) {
+        const user = auth.user;
+
+        getUserById(user.id)
+            .then(() => {
+                updateUser({discordUserId: user.id, username: user.username})
+                    .then(() => {
+                        console.log(`${user.username} has been updated`)
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+            })
+            .catch(() => {
+                addUser({discordUserId: user.id, username: user.username})
+                    .then((value) => {
+                        console.log(`${value.username} has been added to the database`);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+            })
+    }
+
+    // Update servers, or create if they don't exist
+    if (auth.servers) {
+        const servers = auth.servers;
+        for (const server of servers) {
+            getServerById(server.id)
+                .then(() => {
+                    updateServer({discordServerId: server.id, servername: server.name})
+                        .then(() => {
+                            console.log(`${server.servername} has been updated`)
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        })
+                })
+                .catch(() => {
+                    addServer({discordServerId: server.id, servername: server.name})
+                        .then((value) => {
+                            console.log(`${value.servername} has been added to the database`);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        })
+                })
+        }
     }
 
     const [collapsed, setCollapsed] = useState(false);
