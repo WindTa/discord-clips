@@ -25,3 +25,23 @@ export async function getClipById(clipId) {
 		);
 	}
 }
+
+export async function deleteClipById(clipId) {
+    const init = {
+        method: 'DELETE',
+    };
+
+    const url = `${endpointUrl}/${clipId}`;
+    const response = await fetch(url, init);
+    if (response.ok) {
+        return null;
+    } else if (response.status === 404) {
+        return Promise.reject(
+            new Error(`The requested resource could not be found.`)
+        );
+    } else {
+        return Promise.reject(
+            new Error(`Unexpected status code ${response.status}.`)
+        );
+    }
+}

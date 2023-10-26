@@ -55,7 +55,7 @@ function App() {
                         <Route path="/library" element={<Library />}/>
                         <Route path="/playlists/:playlistId" element={<Playlist />}/>
                         <Route path="/servers/:serverId" element={<Server />}/>
-                        <Route path="/clips/add" element={<Clip />}/>
+                        <Route path="/clips/add/:youtubeId" element={<Clip />}/>
                         <Route path="/clips/edit/:clipId" element={<Clip />}/>
                     </Routes>
                 </Container>
