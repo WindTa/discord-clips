@@ -7,7 +7,7 @@ function PlaylistCard({playlist}) {
     const thumbnail = (youtubeId) => `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
 
     return (
-        <Link to={`/playlist/${playlist.playlistId}`}>
+        <Link to={`/playlists/${playlist.playlistId}`}>
             <Col>
                 <Card>
                     <Card.Img variant="top" src={thumbnail(playlist.clips[0]?.clip.youtubeId)} />
