@@ -1,18 +1,19 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthProvider';
 import { getPlaylistsByUser } from '../../services/playlist'
-
 
 import { Form } from "react-bootstrap";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { deleteClipPlaylistById, saveClipPlaylist } from '../../services/clipPlaylist';
+import { addNewClip } from '../../services/clip';
 
-function SaveClip({clip, start, duration, playbackRate}) {
+function SaveClip({clip, clipName, start, duration, playbackRate}) {
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { youtubeId } = useParams();
 
     const [show, setShow] = useState(false);
     const [playlists, setPlaylists] = useState([]);
@@ -24,7 +25,7 @@ function SaveClip({clip, start, duration, playbackRate}) {
 
     useEffect(() => {
         setClipPlaylistsIds(clip.playlists?.map(c => c.playlist.playlistId));
-        getPlaylistsByUser(auth.user.id)
+        getPlaylistsByUser(auth.user?.id)
             .then(setPlaylists)
             .catch(error => {
                 console.error(error);
@@ -32,14 +33,45 @@ function SaveClip({clip, start, duration, playbackRate}) {
     }, []);
 
     // Function to save and update
-    const saveClip = () => {
+    const addClip = () => {
         // save
-        // and then show playlists to let them add to
-        handleShow();
+        const newClip = {
+            clipId: 0,
+            clipName: clipName,
+            youtubeId: youtubeId,
+            startTime: start,
+            duration: duration,
+            volume: 1.0,
+            playbackSpeed: playbackRate,
+            discordUserId: auth.user.id,
+            playlists: []
+        }
+
+        console.log(newClip);
+		addNewClip(newClip)
+			.then(res => {
+				if (!res) {
+                    // and then show playlists to let them add to
+                    handleShow();
+				} else {
+					if (res.error) {
+						setErrors([res.error]);
+					} else {
+						setErrors(res);
+					}
+				}
+			})
+			.catch(error => {
+				console.error(error);
+			});
+
     }
 
     const updateClip = () => {
-
+        //update
+        
+        // and then show playlists to let them add to
+        handleShow();
     }
 
     const addClipToPlaylist = (playlist) => {
@@ -75,14 +107,14 @@ function SaveClip({clip, start, duration, playbackRate}) {
 
     return (
         <>
-            <Button className='w-100' onClick={clip ? saveClip : updateClip}>
+            <Button className='w-100' onClick={!youtubeId ? updateClip : addClip}>
                 <h1>{clip ? 'Save' : 'Update'}</h1>
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        {`Successfully ${clip ? 'updated!' : 'saved!'}`}
+                        {`Successfully ${!youtubeId ? 'updated!' : 'saved!'}`}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -93,7 +125,7 @@ function SaveClip({clip, start, duration, playbackRate}) {
                                 key={idx}
                                 type={'checkbox'}
                                 label={playlist.playlistName}
-                                defaultChecked={clipPlaylistsIds.includes(playlist.playlistId)}
+                                defaultChecked={clipPlaylistsIds?.includes(playlist.playlistId)}
                                 onChange={(event) => {
                                         event.target.checked 
                                             ? addClipToPlaylist(playlist)

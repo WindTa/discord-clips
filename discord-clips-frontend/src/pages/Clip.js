@@ -9,10 +9,15 @@ import ClipEmbed from '../components/clips/ClipEmbed';
 import { getClipById } from '../services/clip';
 
 function Clip() {
-    const { clipId } = useParams();
+    const { clipId, youtubeId } = useParams();
     const [ clip, setClip ] = useState(null);
 
     useEffect(() => {
+        if (youtubeId) {
+            setClip({youtubeId: youtubeId});
+            return;
+        }
+
         getClipById(clipId)
             .then(response => {
                 setClip(response);

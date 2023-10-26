@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 
 import Button from "react-bootstrap/Button";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { deleteClipById } from '../../services/clip';
 
 function DeleteClip({clipId}) {
     const navigate = useNavigate();
+    const { youtubeId } = useParams();
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -26,7 +27,7 @@ function DeleteClip({clipId}) {
 
     return (
         <>
-            <Button variant="danger" className='w-100' onClick={handleShow}>
+            <Button variant="danger" className='w-100' onClick={handleShow} disabled={youtubeId}>
                 <h1>Delete</h1>
             </Button>
 

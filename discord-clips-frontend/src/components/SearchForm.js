@@ -1,21 +1,23 @@
+import { useState } from 'react';
+
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
-import { useEffect } from 'react';
+
+import { parseYouTubeId } from '../utilities/youtubeParser';
+import { useNavigate } from 'react-router-dom';
 
 function SearchForm() {
-    const [searchText, setSearchText] = useState('');
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(searchText);
-    }, [searchText])
+    const [searchText, setSearchText] = useState('');
 
     const handleSearchChange = (value) => {
         setSearchText(value.currentTarget.value);
     }
 
     const handleSubmit = () => {
-        console.log("submit");
+        const youtubeId = parseYouTubeId(searchText);
+        navigate(`/clips/add/${youtubeId}`);
     }
 
     return (

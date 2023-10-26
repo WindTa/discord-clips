@@ -10,16 +10,19 @@ import MultiRangeSlider from 'multi-range-slider-react';
 import SaveClip from '../modals/SaveClip';
 import DeleteClip from '../modals/DeleteClip';
 import { Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 function ClipEmbed({clip}) {
     const playerRef = useRef();
-    const [timer, setTimer] = useState(null);
     const [playing, setPlaying] = useState(false);
+    const [timer, setTimer] = useState(null);
 
-    const [clipName, setClipName] = useState(clip ? clip.clipName : '');
-    const [start, setStart] = useState(clip ? clip.startTime : 0);
-    const [duration, setDuration] = useState(clip ? clip.duration : 5);
-    const [playbackRate, setPlaybackRate] = useState(clip ? clip.playbackSpeed : 1.0);
+    const {youtubeId} = useParams();
+
+    const [clipName, setClipName] = useState(!youtubeId ? clip.clipName : '');
+    const [start, setStart] = useState(!youtubeId ? clip.startTime : 0);
+    const [duration, setDuration] = useState(!youtubeId? clip.duration : 5);
+    const [playbackRate, setPlaybackRate] = useState(!youtubeId ? clip.playbackSpeed : 1.0);
 
     const [videoLength, setVideoLength] = useState(0);
 
@@ -29,6 +32,10 @@ function ClipEmbed({clip}) {
     }, [start, duration, playbackRate])
 
     // Update clip values
+    const handleClipNameChange = (value) => {
+        setClipName(value.currentTarget.value);
+    }
+
     const handleInput = (e) => {
         setStart(e.minValue);
         setDuration(e.maxValue - e.minValue);
@@ -76,7 +83,12 @@ function ClipEmbed({clip}) {
             <Row>
                 <Col md={5}>
                     <Form>
-                        <Form.Control className='fs-1' type='text' placeholder="Enter Clip Title" defaultValue={clipName}></Form.Control>
+                        <Form.Control className='fs-1' 
+                            type='text' 
+                            placeholder="Enter Clip Title" 
+                            defaultValue={clipName}
+                            onChange={handleClipNameChange}
+                        ></Form.Control>
                     </Form>
                 </Col>
                 <Col>
@@ -88,7 +100,7 @@ function ClipEmbed({clip}) {
                     <SaveClip clip={clip} clipName={clipName} start={start} duration={duration} playbackRate={playbackRate}/>
                 </Col>
                 <Col>
-                    <DeleteClip clipId={clip.clipId}/>
+                    <DeleteClip clipId={clip.clipId} />
                 </Col>
             </Row>
         </div>
