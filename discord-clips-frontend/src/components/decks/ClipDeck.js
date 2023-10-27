@@ -54,7 +54,11 @@ function ClipDeck({userId, playlistId, serverId}) {
                     setServer({serverId: response.serverId, serverName: response.servername});
                     setServerClips(response.clips
                         .map(c => c.clip)
-                        .filter(c => c.discordUserId === Math.round(auth.user.id)));
+                        .filter(c => {
+                            console.log(`Clip User Id: ${c.discordUserId}`);
+                            console.log(`Auth User Id: ${auth.user.id}`);
+                            return c.discordUserId === Math.round(auth.user.id)
+                        }));
                 })
                 .catch(error => {
                     console.error(error);

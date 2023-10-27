@@ -18,7 +18,6 @@ function SaveClip({clip, setClip, clipName, start, duration, playbackRate}) {
     const [show, setShow] = useState(false);
     const [playlists, setPlaylists] = useState([]);
     const [clipPlaylistsIds, setClipPlaylistsIds] = useState([]);
-    const [newClipId, setNewClipId] = useState(null);
     const [errors, setErrors] = useState([]);
 
     const [newPlaylist, setNewPlaylist] = useState('');
@@ -84,6 +83,7 @@ function SaveClip({clip, setClip, clipName, start, duration, playbackRate}) {
             playlists: []
         }
 
+        console.log(updatedClip);
 		updateOldClip(updatedClip)
 			.then(res => {
 				if (!res) {
