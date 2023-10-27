@@ -48,26 +48,6 @@
 	- Save `Client ID`
 	- Save `Client Secret`
 	- Enter `Callback URL` into Redirects
-### Supabase
-- [Login to your Github here](https://supabase.com/)
-- Create a Supabase Project
-	- Save `Database Password` just in case you ever need it
-- Go to Settings -> API
-	- Save `URL`
-	- Save `Project API Key anon public`
--  Go to Authentication -> URL Configuration
-	- Enter a url you wish to redirect to after authenticating
-- Go to Authentication -> Providers -> Discord
-	- Enable
-	- Enter `Client ID` from Discord Project
-	- Enter `Client Secret` from Discord Project
-	- Save `Callback URL`
-### React App
-- Create react app with `npx create-react-app react-app-name`
-#### Libaries
-- Supabase: `npm install @supabase/auth-ui-react @supabase/supabase-js`
-- Routing: `npm install react-router-dom`
-- Bootstrap: `npm install bootstrap react-bootstrap react-router-bootstrap`
 ---
 ## Tasks
 ### ~~Research  (Estimate: 4 hours | Actual: 6 hours)~~
@@ -198,18 +178,18 @@
 		- [ ] Update with new permissions after each feature implementation
 	- [ ] Add `AuthController` class
 		- [ ] Block a request if requests have an invalid access token
-- [ ] Create Discord application
-	- [ ] Generate OAuth2 Link with permissions and redirect
-	- [ ] Create Route to OAuth2 Link
-	- [ ] Any requests made will need the access token
-### UI Services  (Estimate: 4 hours | Actual:  hours)
-- [ ] Add `discordUser.js`
-- [ ] Add `discordServer.js`
-- [ ] Add `clip.js`
-- [ ] Add `userServerClip.js`
-- [ ] Add `userDefaultClip.js`
-- [ ] Add `playlist.js`
-- [ ] Add `playlistClip.js`
+- [x] Create Discord application
+	- [x] Generate OAuth2 Link with permissions and redirect
+	- [x] Create Route to OAuth2 Link
+	- [x] Any requests made will need the access token
+### ~~UI Services  (Estimate: 4 hours | Actual:  4 hours)~~
+- [x] Add `discordUser.js`
+- [x] Add `discordServer.js`
+- [x] Add `clip.js`
+- [x] Add `userServerClip.js`
+- [x] Add `userDefaultClip.js`
+- [x] Add `playlist.js`
+- [x] Add `playlistClip.js`
 ### ~~NavBar component  (Estimate: 1 hours | Actual:  2 hours)~~
 - [x] Menu toggle button
 - [x] Home Link
@@ -222,7 +202,7 @@
 - [x] Server Option
 - [x] Logged In/Logged Out View
 - [x] Hidden (partial/full)
-### ClipInfo component  (Estimate: 0.5 hours | Actual:  hours)
+### ~~ClipInfo component  (Estimate: 0.5 hours | Actual:  1 hours)~~
 - [x] Video Title
 - [x] Video | Release Date
 - [x] Channel Picture | Channel Name
@@ -230,13 +210,13 @@
 ### ClipOptions component  (Estimate: 0.5 hours | Actual:  hours)
 - [ ] Default ..., togglable to 
 - [ ] Edit/Delete/Save to Playlist
-### Clip component  (Estimate: 0.5 hours | Actual:  hours)
+### ~~Clip component  (Estimate: 0.5 hours | Actual:  1 hours)~~
 - [x] Thumbnail
-- [x] ClipInfo component
-- [x] Mini Player
-- [x] ClipOptions component
-- [x] = Swappable button
-### ClipList component  (Estimate: 0.5 hours | Actual:  hours)
+- [ ] ClipInfo component
+- [ ] Mini Player
+- [ ] ClipOptions component
+- [ ] = Swappable button
+### ~~ClipList component  (Estimate: 0.5 hours | Actual:  2 hours)~~
 - [x] Map Clips to Clip components
 ### Home/Guide page  (Estimate: 2 hours | Actual:  hours)
 - [ ] What does it do?
@@ -252,20 +232,20 @@
 - [ ] Playlist Name Editor
 - [ ] Playlist Search component
 - [ ] Delete Playlist button
-### Playlist page  (Estimate: 1 hours | Actual:  hours)
+### Playlist page  ~~(Estimate: 1 hours | Actual:  1 hours)~~
 - [x] PlaylistHeader component
 - [ ] Add to Playlist button
 - [x] ClipList component
-### SaveClip page  (Estimate: 2 hours | Actual:  hours)
-- [ ] YouTube embed
-- [ ] Media control
-- [ ] Clip Info component
-- [ ] Save button
+### ~~SaveClip page  (Estimate: 2 hours | Actual:  8 hours)~~
+- [x] YouTube embed
+- [x] Media control
+- [x] Clip Info component
+- [x] Save button
 ### ServerHeader component  (Estimate: 0.5 hours | Actual:  hours)
 - [ ] ServerInfo component
 - [ ] Server Clips Search component
 - [ ] Edit Clips
-### Server page  (Estimate: 1 hours | Actual:  hours)
+### ~~Server page  (Estimate: 1 hours | Actual:  1 hours)~~
 - [ ] ServerHeader component
 - [ ] ClipList component
 ### ServerPlaylist component  (Estimate: 1 hours | Actual:  hours)

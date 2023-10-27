@@ -1,7 +1,7 @@
 function Home() {
     return (
         <div>
-            <div>Home</div>
+            <h1>Welcome to DisClip!</h1>
         </div>
     );
 }
