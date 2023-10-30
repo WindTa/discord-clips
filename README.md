@@ -11,20 +11,13 @@
 ---
 ## Deliverables
 - [Set Up Guide](.deliverables/SetUp.md)
-- [Presentation](./deliverables/Presentation)
+- [Presentation](./deliverables/DisClip.pdf)
 - [User Story](./deliverables/UserStory.md)
 - [Task List](./deliverables/TaskList.md)
-- [Database Schema](./deliverables/imgs/database-schema.png)
 - [Wireframe: Layers ](./deliverables/imgs/layers.png)
 - [Wireframe: UI Sketch and Transitions](./deliverables/imgs/ui-sketch.png)
+- [Database Schema](./deliverables/imgs/database-schema.png)
+- [Database Scripts](./discord-clips-backend/sql)
+- [Backend Tests](./discord-clips-backend/src/test/java/org/capstone)
 
----
-## Install Guide
-### Discord Application
-- [Login to your Discord here](https://discord.com/developers/applications)
-- Create a Discord Application
-- Go to OAuth2
-	- Save `Client ID`
-	- Save `Client Secret`
-	- Enter `Callback URL` into Redirects
 ---

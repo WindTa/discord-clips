@@ -16,7 +16,7 @@ import AvatarIcon from './icons/AvatarIcon';
 function NavBar({handleCollapse}) {
     const { auth, setAuth } = useContext(AuthContext);
 
-    const oauth = "https://discord.com/api/oauth2/authorize?client_id=1163916171846877325&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify%20guilds"
+    const oauth = process.env.REACT_APP_DISCORD_GENERATED_URL;
     const home = "/";
 
     const loggedOut = Object.keys(auth).length === 0;
