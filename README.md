@@ -10,7 +10,7 @@
 - Learning Goals: learn to use discord.js, embedded media players, and OAuth2. 
 ---
 ## Deliverables
-- [Set Up Guide](.deliverables/SetUp.md)
+- [Set Up Guide](./deliverables/SetUp.md)
 - [Presentation](./deliverables/DisClip.pdf)
 - [User Story](./deliverables/UserStory.md)
 - [Task List](./deliverables/TaskList.md)

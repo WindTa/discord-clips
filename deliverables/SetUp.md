@@ -59,6 +59,9 @@
 - `NOTE`: This does not currently work with my frontend/backend application
 - `NOTE`: This is meant as a proof of concept, to show that a Discord Bot can play a YouTube clip upon entering a voice channel
 
+### Install `ffmpeg`
+- https://ffmpeg.org/download.html
+
 ### Set Up Discord Bot
 - [Log in to your Discord Developer Portal](https://discord.com/developers/applications)
 - Click `OAuth2`
