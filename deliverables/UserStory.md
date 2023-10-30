@@ -1,0 +1,23 @@
+# User Stories
+## As a user I want to ...
+- sign in to my Discord account
+- sign out of my Discord account
+- toggle the menu sidebar
+- view a tutorial on how to use the application (HOME)
+- enter YouTube url to view at SAVE_CLIP page
+	- to save start time, end time, volume control, and playback speed
+	- create new playlist from select playlist view
+	- view a list of playlists to save to
+- view all of my clips, playlists, and servers in carousel view at LIBRARY page
+- view all of and minimize my playlists in the menu sidebar
+- view all of and minimize my servers in the menu sidebar
+- view all clips in a playlist at PLAYLIST page
+	- delete playlist
+	- view clip info
+	- play clip through a mini player as a preview
+	- click options for edit/delete/save to playlist
+- view all playlists at SERVER page
+	- view all enabled clips
+	- view all clips per playlist
+	- view unassigned clips (not in a playlist)
+	- enable/disable clip for server
