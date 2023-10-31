@@ -79,3 +79,5 @@
     - `DISCORD_TOKEN`
     ![SiggyBot Environment Variable](./imgs/siggybot-env-var.png)
 - Run bot with `npx ts-node index.ts`
+    - It will say that the bot is running when it is ready
+    - Now join a voice channel in your server, and it will stream a YouTube video upon entry!
